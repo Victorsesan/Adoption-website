@@ -1,0 +1,9 @@
+{
+  "adoption_code": "AD-47293-2026",
+  "pet_id": "DOG-00001",
+  "pet_name": "Buddy",
+  "applicant_name": "James Carter",
+  "applicant_email": "james.carter@example.com",
+  "status": "APPROVED",
+  "created_at": "2026-05-28 09:14:22"
+}

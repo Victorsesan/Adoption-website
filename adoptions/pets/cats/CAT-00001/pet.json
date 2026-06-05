@@ -1,0 +1,19 @@
+{
+  "pet_id": "CAT-00001",
+  "category": "cats",
+  "name": "Luna",
+  "species": "",
+  "breed": "Siamese Mix",
+  "age_years": 2,
+  "size": "Small",
+  "description_short": "Gentle and affectionate Siamese mix who loves lap time.",
+  "description_full": "Luna is a quiet and loving indoor cat who bonds deeply with her person. She does well in calm households.",
+  "adoption_fee": 150,
+  "health_info": "Vaccinated, spayed, microchipped",
+  "single_image_url": "/assets/images/pet-placeholder.jpg",
+  "bulk_images_url": "/adoptions/pets/cats/CAT-00001/bulk_images/",
+  "bulk_images": [],
+  "status": "Available",
+  "created_at": "2026-05-28 04:09:41",
+  "updated_at": "2026-05-28 04:09:41"
+}

@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Adopt a pet today. Browse dogs, cats, birds, reptiles, and small mammals at Pet Center — find your perfect companion.">
+  <title>Pet Center — Adopt Your New Best Friend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/preload.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    /* ── Reset overlap with old Bootstrap partial ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ════════════════════════════════════
+       STICKY TRANSPARENT HEADER
+       ════════════════════════════════════ */
+    .pc-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+    }
+    .pc-header.scrolled {
+      background: rgba(16,33,75,0.97);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.18);
+    }
+    .pc-header__logo img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+    .pc-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+    .pc-header__nav li { position: relative; }
+    .pc-header__nav a {
+      display: block;
+      padding: 8px 11px;
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .pc-header__nav a:hover { color: #d7bd88; background: rgba(255,255,255,0.08); }
+    .pc-header__nav .nav-donate a {
+      background: #ED7624;
+      color: #fff;
+      font-weight: 600;
+      padding: 8px 16px;
+    }
+    .pc-header__nav .nav-donate a:hover { background: #d4621a; }
+    .pc-header__nav .nav-login a {
+      border: 1px solid rgba(215,189,136,0.5);
+      color: #d7bd88;
+    }
+    .pc-header__nav .nav-login a:hover { background: rgba(215,189,136,0.12); }
+    /* Dropdown */
+    .pc-header__nav .has-drop > ul {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      background: #10214b;
+      border-radius: 8px;
+      list-style: none;
+      min-width: 168px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      padding: 6px 0;
+      z-index: 100;
+    }
+    .pc-header__nav .has-drop:hover > ul { display: block; }
+    .pc-header__nav .has-drop > ul a {
+      padding: 9px 18px;
+      font-size: 13px;
+      border-radius: 0;
+    }
+    /* Hamburger */
+    .pc-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+    .pc-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .pc-mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: rgba(16,33,75,0.98);
+      z-index: 999;
+      padding: 16px 0 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .pc-mobile-menu.open { display: block; }
+    .pc-mobile-menu a {
+      display: block;
+      padding: 12px 28px;
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pc-mobile-menu a:hover { color: #d7bd88; background: rgba(255,255,255,0.05); }
+    .pc-mobile-menu .mobile-donate {
+      margin: 12px 28px 0;
+      display: inline-block;
+      background: #ED7624;
+      color: #fff;
+      padding: 11px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .pc-header__nav { display: none; }
+      .pc-hamburger { display: flex; }
+    }
+
+    /* ════════════════════════════════════
+       HERO SECTION
+       ════════════════════════════════════ */
+    .pc-hero {
+      min-height: 100vh;
+      background: linear-gradient(120deg, rgba(16,33,75,0.82) 0%, rgba(30,50,100,0.65) 60%, rgba(0,0,0,0.45) 100%),
+                  url('img/banner.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      position: relative;
+    }
+    .pc-hero__inner { max-width: 720px; }
+    .pc-hero__eyebrow {
+      display: inline-block;
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #d7bd88;
+      background: rgba(215,189,136,0.12);
+      border: 1px solid rgba(215,189,136,0.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .pc-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+    .pc-hero p {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(15px, 2vw, 17px);
+      color: rgba(255,255,255,0.82);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .pc-hero__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .pc-hero__btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #ED7624; color: #fff;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: background 0.25s, transform 0.2s;
+    }
+    .pc-hero__btn-primary:hover { background: #d4621a; transform: translateY(-2px); }
+    .pc-hero__btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 500;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .pc-hero__btn-secondary:hover { background: rgba(255,255,255,0.2); }
+
+    /* ════════════════════════════════════
+       STATUS CHECKER
+       ════════════════════════════════════ */
+    .pc-status-section {
+      background: #fff;
+      padding: 56px 24px;
+      border-bottom: 1px solid #f0ebe4;
+    }
+    .pc-status-inner {
+      max-width: 620px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .pc-status-inner .eyebrow {
+      display: inline-block;
+      font-family: 'Sora', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: #ED7624;
+      background: rgba(237,118,36,0.08);
+      padding: 4px 14px; border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .pc-status-inner h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; color: #10214b;
+      margin-bottom: 8px;
+    }
+    .pc-status-inner > p {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px; color: #7a6d5f;
+      margin-bottom: 28px;
+    }
+    .pc-status-form {
+      display: flex; gap: 10px;
+      background: #f9f7f4;
+      border-radius: 10px;
+      padding: 6px 6px 6px 18px;
+      box-shadow: 0 2px 16px rgba(16,33,75,0.08);
+    }
+    .pc-status-form input {
+      flex: 1; border: none; background: transparent;
+      font-family: 'Sora', sans-serif; font-size: 15px; color: #10214b;
+      outline: none; min-width: 0;
+    }
+    .pc-status-form input::placeholder { color: #b0a69a; }
+    .pc-status-form button {
+      background: #10214b; color: #fff;
+      border: none; border-radius: 8px;
+      padding: 12px 24px;
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .pc-status-form button:hover { background: #1a2f5c; }
+    #statusResult {
+      margin-top: 24px;
+      text-align: left;
+      display: none;
+    }
+    .status-card {
+      background: #f9f7f4;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(16,33,75,0.08);
+    }
+    .status-card.pending  { border-left: 4px solid #d7bd88; }
+    .status-card.approved { border-left: 4px solid #0d7c4a; background: #f0fbf6; }
+    .status-card.rejected { border-left: 4px solid #c0392b; background: #fef5f5; }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 20px;
+      font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .badge-pending  { background: rgba(215,189,136,0.2); color: #8a6d2f; }
+    .badge-approved { background: rgba(13,124,74,0.12); color: #0d7c4a; }
+    .badge-rejected { background: rgba(192,57,43,0.1); color: #c0392b; }
+    .status-pet-row {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px;
+    }
+    .status-pet-img {
+      width: 72px; height: 72px; object-fit: cover;
+      border-radius: 8px; flex-shrink: 0;
+    }
+    .status-pet-info h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 700; color: #10214b;
+    }
+    .status-pet-info p {
+      font-family: 'Sora', sans-serif; font-size: 13px; color: #7a6d5f;
+    }
+    .status-payment-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 2px 8px rgba(16,33,75,0.06);
+    }
+    .status-payment-box h5 {
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700;
+      color: #10214b; letter-spacing: .04em; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .status-payment-box ul {
+      list-style: none; display: flex; flex-direction: column; gap: 12px;
+    }
+    .status-payment-box ul li {
+      font-family: 'Sora', sans-serif; font-size: 13px; color: #3d2817;
+      line-height: 1.6;
+      padding-left: 20px;
+      position: relative;
+    }
+    .status-payment-box ul li::before {
+      content: '';
+      position: absolute; left: 0; top: 7px;
+      width: 8px; height: 8px;
+      background: #ED7624; border-radius: 50%;
+    }
+    .status-payment-box ul li strong { color: #10214b; }
+    .status-checkout-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #0d7c4a; color: #fff;
+      padding: 13px 28px; border-radius: 8px;
+      font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600;
+      text-decoration: none; margin-top: 4px;
+      transition: background 0.2s;
+    }
+    .status-checkout-btn:hover { background: #0a6038; }
+
+    /* ════════════════════════════════════
+       MOST RECENT PETS
+       ════════════════════════════════════ */
+    .pc-recent-pets {
+      padding: 80px 24px;
+      background: #f9f7f4;
+    }
+    .pc-section-head {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .pc-section-head .eyebrow {
+      display: inline-block;
+      font-family: 'Sora', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: #ED7624;
+      background: rgba(237,118,36,0.08);
+      padding: 4px 14px; border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .pc-section-head h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; color: #10214b;
+      margin-bottom: 10px;
+    }
+    .pc-section-head p {
+      font-family: 'Sora', sans-serif;
+      font-size: 15px; color: #7a6d5f;
+      max-width: 500px; margin: 0 auto;
+    }
+    .pc-pets-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .pc-pet-card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(16,33,75,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .pc-pet-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(16,33,75,0.14);
+    }
+    .pc-pet-card__img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e8e0d5, #d0c3ba);
+    }
+    .pc-pet-card__img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .pc-pet-card:hover .pc-pet-card__img-wrap img { transform: scale(1.04); }
+    .pc-pet-card__adopted-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(16,33,75,0.85);
+      color: #d7bd88;
+      font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px;
+    }
+    .pc-pet-card__body {
+      padding: 20px;
+      flex: 1;
+      display: flex; flex-direction: column;
+    }
+    .pc-pet-card__category {
+      font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: #ED7624; margin-bottom: 6px;
+    }
+    .pc-pet-card__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 700; color: #10214b;
+      margin-bottom: 4px;
+    }
+    .pc-pet-card__meta {
+      font-family: 'Sora', sans-serif; font-size: 12.5px; color: #7a6d5f;
+      margin-bottom: 10px;
+    }
+    .pc-pet-card__tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 14px;
+    }
+    .pc-pet-card__tag {
+      font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 500;
+      color: #10214b; background: #f0ebe4;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .pc-pet-card__footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto;
+    }
+    .pc-pet-card__fee {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 700; color: #10214b;
+    }
+    .pc-pet-card__btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #ED7624; color: #fff;
+      padding: 9px 18px; border-radius: 7px;
+      font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 600;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .pc-pet-card__btn:hover { background: #d4621a; }
+    .pc-pet-card__btn.cat-btn { background: #e91e8c; }
+    .pc-pet-card__btn.cat-btn:hover { background: #c5156e; }
+    .pc-pet-card__btn.bird-btn { background: #16a34a; }
+    .pc-pet-card__btn.bird-btn:hover { background: #127a3a; }
+    .pc-pet-card__btn.rep-btn { background: #7c3aed; }
+    .pc-pet-card__btn.rep-btn:hover { background: #6429c8; }
+    .pc-pet-card__btn.sm-btn { background: #0284c7; }
+    .pc-pet-card__btn.sm-btn:hover { background: #0168a1; }
+    .pc-pets-empty {
+      grid-column: 1/-1; text-align: center;
+      padding: 48px 24px;
+      font-family: 'Sora', sans-serif; color: #7a6d5f;
+    }
+    .pc-pets-cta {
+      text-align: center; margin-top: 44px;
+    }
+    .pc-btn-outline-navy {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 2px solid #10214b; color: #10214b;
+      padding: 12px 32px; border-radius: 8px;
+      font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .pc-btn-outline-navy:hover { background: #10214b; color: #fff; }
+
+    @media (max-width: 900px) {
+      .pc-pets-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+    @media (max-width: 560px) {
+      .pc-pets-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ════════════════════════════════════
+       BLOG CAROUSEL
+       ════════════════════════════════════ */
+    .pc-blog-carousel-section {
+      padding: 80px 24px;
+      background: #fff;
+    }
+    .pc-blog-carousel-wrap {
+      max-width: 1200px; margin: 0 auto;
+      position: relative;
+    }
+    .pc-blog-viewport { overflow: hidden; border-radius: 12px; }
+    .pc-blog-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    .pc-blog-slide {
+      flex: 0 0 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding: 4px;
+    }
+    .pc-blog-card {
+      background: #f9f7f4;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(16,33,75,0.07);
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none;
+      display: flex; flex-direction: column;
+    }
+    .pc-blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(16,33,75,0.12);
+    }
+    .pc-blog-card__img {
+      height: 170px; overflow: hidden;
+      background: linear-gradient(135deg,#10214b,#2a4080);
+    }
+    .pc-blog-card__img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.4s;
+    }
+    .pc-blog-card:hover .pc-blog-card__img img { transform: scale(1.05); }
+    .pc-blog-card__body {
+      padding: 18px 18px 20px;
+      flex: 1; display: flex; flex-direction: column;
+    }
+    .pc-blog-card__tag {
+      font-family: 'Sora', sans-serif; font-size: 10.5px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: #ED7624; margin-bottom: 8px;
+    }
+    .pc-blog-card__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.12rem; font-weight: 700; color: #10214b;
+      line-height: 1.3; margin-bottom: 8px;
+    }
+    .pc-blog-card__date {
+      font-family: 'Sora', sans-serif; font-size: 12px; color: #b0a69a;
+      margin-bottom: 14px;
+    }
+    .pc-blog-card__read {
+      margin-top: auto;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Sora', sans-serif; font-size: 12.5px; font-weight: 600;
+      color: #10214b; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .pc-blog-card__read:hover { color: #ED7624; }
+    .pc-blog-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; margin-top: 28px;
+    }
+    .pc-blog-nav-btn {
+      width: 42px; height: 42px;
+      border: 1px solid #d0c3ba; background: #fff;
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; color: #10214b;
+    }
+    .pc-blog-nav-btn:hover { background: #10214b; color: #fff; border-color: #10214b; }
+    .pc-blog-nav-btn svg { width: 18px; height: 18px; }
+
+    @media (max-width: 900px) {
+      .pc-blog-slide { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .pc-blog-slide { grid-template-columns: 1fr; }
+    }
+
+    /* ════════════════════════════════════
+       TESTIMONIALS CAROUSEL
+       ════════════════════════════════════ */
+    .pc-testimonials-section {
+      background: linear-gradient(135deg, #f3f4f6 0%, #f9f7f4 100%);
+      padding: 80px 24px;
+    }
+    .pc-testimonials-inner {
+      max-width: 820px; margin: 0 auto;
+    }
+    .pc-testi-carousel-wrap {
+      margin: 32px 0 0;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 24px rgba(16,33,75,0.09);
+      overflow: hidden;
+    }
+    .pc-testi-viewport { overflow: hidden; }
+    .pc-testi-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .pc-testi-card {
+      flex: 0 0 100%;
+      padding: 36px;
+    }
+    .pc-testi-card-inner { display: flex; flex-direction: column; gap: 14px; }
+    .pc-testi-top {
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .pc-testi-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 18px; flex-shrink: 0;
+    }
+    .pc-testi-meta { flex: 1; }
+    .pc-testi-name {
+      font-family: 'Sora', sans-serif;
+      font-weight: 600; color: #10214b; font-size: 15px;
+    }
+    .pc-testi-date {
+      font-family: 'Sora', sans-serif;
+      font-size: 12.5px; color: #9ca3af; margin-top: 2px;
+    }
+    .pc-testi-stars { font-size: 16px; letter-spacing: 2px; }
+    .pc-testi-text {
+      font-family: 'Sora', sans-serif;
+      font-size: 14.5px; line-height: 1.7; color: #3d2817;
+    }
+    .pc-testi-reply {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid #f0ebe4;
+      padding-left: 52px;
+    }
+    .pc-testi-reply-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+    }
+    .pc-testi-reply-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: #10214b; color: #d7bd88;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+    .pc-testi-reply-name {
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; color: #10214b;
+    }
+    .pc-testi-reply-role {
+      font-size: 11px; color: #9ca3af; font-weight: 500;
+    }
+    .pc-testi-reply-date {
+      font-size: 11px; color: #b0a69a; margin-top: 3px;
+    }
+    .pc-testi-reply-text {
+      font-family: 'Sora', sans-serif; font-size: 13.5px;
+      line-height: 1.6; color: #7a6d5f;
+      font-style: italic; margin-top: 6px;
+    }
+    .pc-testi-controls {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; padding: 20px;
+    }
+    .pc-testi-btn {
+      width: 40px; height: 40px;
+      border: 1px solid #d0c3ba; background: #fff;
+      border-radius: 50%; cursor: pointer;
+      font-size: 22px; display: flex; align-items: center; justify-content: center;
+      color: #10214b; transition: all 0.2s;
+    }
+    .pc-testi-btn:hover { background: #10214b; color: #fff; border-color: #10214b; }
+    .pc-testi-dots { display: flex; gap: 8px; }
+    .pc-testi-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #d0c3ba; border: none; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .pc-testi-dot.active {
+      background: #10214b; width: 28px; border-radius: 5px;
+    }
+    .pc-testi-cta {
+      text-align: center; margin-top: 32px;
+    }
+    .pc-testi-cta a {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600;
+      color: #10214b; text-decoration: none;
+      border-bottom: 2px solid #ED7624;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .pc-testi-cta a:hover { color: #ED7624; }
+
+    @media (max-width: 600px) {
+      .pc-testi-card { padding: 22px 18px; }
+      .pc-testi-reply { padding-left: 0; }
+    }
+
+    /* ════════════════════════════════════
+       HOW ADOPTION WORKS
+       ════════════════════════════════════ */
+    .pc-how-section {
+      padding: 80px 24px;
+      background: #10214b;
+    }
+    .pc-how-section .pc-section-head h2 { color: #fff; }
+    .pc-how-section .pc-section-head p { color: rgba(255,255,255,0.7); }
+    .pc-how-section .pc-section-head .eyebrow {
+      color: #d7bd88;
+      background: rgba(215,189,136,0.12);
+    }
+    .pc-how-steps {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+    .pc-how-step {
+      text-align: center;
+      padding: 32px 18px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 14px;
+      border: 1px solid rgba(215,189,136,0.15);
+      transition: background 0.25s;
+    }
+    .pc-how-step:hover { background: rgba(255,255,255,0.1); }
+    .pc-how-num {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, #ED7624, #d4621a);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 700;
+      margin: 0 auto 18px;
+    }
+    .pc-how-step h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: #d7bd88; margin-bottom: 10px;
+    }
+    .pc-how-step p {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px; color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+    }
+    @media (max-width: 900px) {
+      .pc-how-steps { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .pc-how-steps { grid-template-columns: 1fr 1fr; gap: 14px; }
+    }
+
+    /* ════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════ */
+    .pc-footer {
+      background: #0b1834;
+      padding: 60px 24px 28px;
+      color: rgba(255,255,255,0.65);
+      font-family: 'Sora', sans-serif;
+    }
+    .pc-footer__inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .pc-footer__top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .pc-footer__brand img { height: 40px; margin-bottom: 16px; }
+    .pc-footer__brand p { font-size: 13.5px; line-height: 1.7; max-width: 280px; }
+    .pc-footer__col h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: #d7bd88; margin-bottom: 16px;
+    }
+    .pc-footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .pc-footer__col ul a {
+      font-size: 13px; color: rgba(255,255,255,0.6);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .pc-footer__col ul a:hover { color: #d7bd88; }
+    .pc-footer__bottom {
+      padding-top: 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .pc-footer__copy { font-size: 12.5px; }
+    .pc-footer__links { display: flex; gap: 20px; }
+    .pc-footer__links a { font-size: 12.5px; color: rgba(255,255,255,0.5); text-decoration: none; }
+    .pc-footer__links a:hover { color: #d7bd88; }
+    @media (max-width: 900px) {
+      .pc-footer__top { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+    @media (max-width: 560px) {
+      .pc-footer__top { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    /* misc utilities */
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════
+     PRELOAD OVERLAY
+     ════════════════════════════════════════════════════════════════ -->
+<div id="pc-preload" role="status" aria-label="Loading Pet Center">
+  <img class="pc-preload__logo" src="assets/images/logo-petcenter.png" alt="Pet Center">
+  <div class="pc-preload__paw">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="6" cy="4" r="2.5"/>
+      <circle cx="18" cy="4" r="2.5"/>
+      <circle cx="3" cy="11" r="2"/>
+      <circle cx="21" cy="11" r="2"/>
+      <path d="M12 10c-3.5 0-6.5 2.5-6.5 5.5 0 2 1 3.5 2.5 4.5h8c1.5-1 2.5-2.5 2.5-4.5C18.5 12.5 15.5 10 12 10z"/>
+    </svg>
+  </div>
+  <div class="pc-preload__dots">
+    <span class="pc-preload__dot"></span>
+    <span class="pc-preload__dot"></span>
+    <span class="pc-preload__dot"></span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     STICKY HEADER
+     ════════════════════════════════════════════════════════════════ -->
+<header class="pc-header" id="pcHeader">
+  <a href="index.html" class="pc-header__logo">
+    <img src="assets/images/logo-petcenter.png" alt="Pet Center">
+  </a>
+
+  <ul class="pc-header__nav">
+    <li><a href="index.html">Home</a></li>
+    <li class="has-drop"><a href="#">Our Pets</a>
+      <ul>
+        <li><a href="dogs.html">Dogs</a></li>
+        <li><a href="cats.html">Cats</a></li>
+        <li><a href="birds.html">Birds</a></li>
+        <li><a href="reptiles.html">Reptiles</a></li>
+        <li><a href="small-mammals.html">Small Mammals</a></li>
+      </ul>
+    </li>
+    <li><a href="blog-home.html">Blog</a></li>
+    <li><a href="testimonials/">Testimonials</a></li>
+    <li class="nav-donate"><a href="https://donate.petcenterco.com" target="_blank" rel="noopener">Donate</a></li>
+    <li><a href="https://docs.petcenterco.com/contact-us" target="_blank" rel="noopener">Contact</a></li>
+    <li class="nav-login"><a href="admin/index.html">Login</a></li>
+  </ul>
+
+  <button class="pc-hamburger" id="pcHamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="pc-mobile-menu" id="pcMobileMenu" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="dogs.html">Dogs</a>
+  <a href="cats.html">Cats</a>
+  <a href="birds.html">Birds</a>
+  <a href="reptiles.html">Reptiles</a>
+  <a href="small-mammals.html">Small Mammals</a>
+  <a href="blog-home.html">Blog</a>
+  <a href="testimonials/">Testimonials</a>
+  <a href="https://docs.petcenterco.com/contact-us" target="_blank" rel="noopener">Contact</a>
+  <a href="admin/index.html">Login</a>
+  <a href="https://donate.petcenterco.com" class="mobile-donate" target="_blank" rel="noopener">Donate</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════════
+     HERO SECTION
+     ════════════════════════════════════════════════════════════════ -->
+<section class="pc-hero" id="home">
+  <div class="pc-hero__inner">
+    <div class="pc-hero__eyebrow">Welcome to Pet Center</div>
+    <h1>Adorable Friends<br>Waiting for You</h1>
+    <p>Each one of these wonderful animals is ready to fill your home with unconditional love, joy, and endless tail wags.</p>
+    <div class="pc-hero__btns">
+      <a href="dogs.html" class="pc-hero__btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C10.9 2 10 2.9 10 4s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.5 5C6.4 5 5.5 5.9 5.5 7s.9 2 2 2 2-.9 2-2-.9-2-2-2zm9 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-4.5 4c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z"/></svg>
+        View All Available Pets
+      </a>
+      <a href="#statusChecker" class="pc-hero__btn-secondary">Check Adoption Status</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     STATUS CHECKER
+     ════════════════════════════════════════════════════════════════ -->
+<section class="pc-status-section" id="statusChecker">
+  <div class="pc-status-inner">
+    <span class="eyebrow">Adoption Status</span>
+    <h2>Check Your Application</h2>
+    <p>Enter your unique adoption code to see the current status of your application.</p>
+    <div class="pc-status-form">
+      <input type="text" id="statusInput" placeholder="e.g. AD-47293-2026" maxlength="16" autocomplete="off" spellcheck="false">
+      <button id="statusBtn" onclick="checkAdoptionStatus()">Check Status</button>
+    </div>
+    <div id="statusResult"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     MOST RECENT PETS
+     ════════════════════════════════════════════════════════════════ -->
+<section class="pc-recent-pets" id="featuredPets">
+  <div class="pc-section-head">
+    <span class="eyebrow">Meet Our Pets</span>
+    <h2>Adorable Friends Waiting for You</h2>
+    <p>Every pet deserves a loving home. Browse our most recently added companions.</p>
+  </div>
+  <div class="pc-pets-grid" id="recentPetsGrid">
+    <div class="pc-pets-empty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d0c3ba" stroke-width="1.5" style="margin:0 auto 12px;display:block;"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l1.06 1.06L12 21.23l7.36-7.94 1.06-1.06a5.4 5.4 0 0 0 0-7.65z"/></svg>
+      <p style="font-family:'Sora',sans-serif;color:#b0a69a;">Loading pets...</p>
+    </div>
+  </div>
+  <div class="pc-pets-cta">
+    <a href="dogs.html" class="pc-btn-outline-navy">
+      View All Available Pets
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     BLOG CAROUSEL
+     ════════════════════════════════════════════════════════════════ -->
+<section class="pc-blog-carousel-section">
+  <div class="pc-section-head">
+    <span class="eyebrow">From Our Blog</span>
+    <h2>Latest from Our Blog</h2>
+    <p>Tips, guides, and heartwarming stories from the Pet Center team.</p>
+  </div>
+  <div class="pc-blog-carousel-wrap">
+    <div class="pc-blog-viewport">
+      <div class="pc-blog-track" id="blogTrack">
+        <!-- Slide 1: 4 posts -->
+        <div class="pc-blog-slide">
+          <a href="blog-single.html" class="pc-blog-card">
+            <div class="pc-blog-card__img">
+              <img src="img/dg1.jpg" alt="First-Time Dog Adoption Guide" onerror="this.style.display='none'">
+            </div>
+            <div class="pc-blog-card__body">
+              <div class="pc-blog-card__tag">Adoption Guides</div>
+              <div class="pc-blog-card__title">The Complete First-Time Adopter's Guide to Bringing a Dog Home</div>
+              <div class="pc-blog-card__date">May 20, 2026</div>
+              <span class="pc-blog-card__read">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+          <a href="blog-single.html" class="pc-blog-card">
+            <div class="pc-blog-card__img">
+              <img src="img/ct1.jpg" alt="Adopting a Cat" onerror="this.style.display='none'">
+            </div>
+            <div class="pc-blog-card__body">
+              <div class="pc-blog-card__tag">Pet Care</div>
+              <div class="pc-blog-card__title">How to Help Your Adopted Cat Feel at Home in the First Week</div>
+              <div class="pc-blog-card__date">May 15, 2026</div>
+              <span class="pc-blog-card__read">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+          <a href="blog-single.html" class="pc-blog-card">
+            <div class="pc-blog-card__img">
+              <img src="img/dg2.jpg" alt="Health After Adoption" onerror="this.style.display='none'">
+            </div>
+            <div class="pc-blog-card__body">
+              <div class="pc-blog-card__tag">Health &amp; Wellness</div>
+              <div class="pc-blog-card__title">What Every New Pet Parent Must Know About Post-Adoption Veterinary Care</div>
+              <div class="pc-blog-card__date">May 10, 2026</div>
+              <span class="pc-blog-card__read">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+          <a href="blog-single.html" class="pc-blog-card">
+            <div class="pc-blog-card__img">
+              <img src="img/ct2.jpg" alt="Training Tips" onerror="this.style.display='none'">
+            </div>
+            <div class="pc-blog-card__body">
+              <div class="pc-blog-card__tag">Training</div>
+              <div class="pc-blog-card__title">5 Positive Reinforcement Techniques That Work for Any Rescue Dog</div>
+              <div class="pc-blog-card__date">May 3, 2026</div>
+              <span class="pc-blog-card__read">Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="pc-blog-nav">
+      <button class="pc-blog-nav-btn" id="blogPrev" aria-label="Previous posts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="pc-blog-nav-btn" id="blogNext" aria-label="Next posts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     TESTIMONIALS
+     ════════════════════════════════════════════════════════════════ -->
+<section class="pc-testimonials-section" id="testimonialsSection">
+  <div class="pc-section-head">
+    <span class="eyebrow">Adopter Stories</span>
+    <h2>Stories from Happy Adopters</h2>
+    <p>Real feedback from families who've found their perfect companions.</p>
+  </div>
+
+  <div class="pc-testimonials-inner">
+    <div class="pc-testi-carousel-wrap" id="testiCarouselWrap">
+      <div class="pc-testi-viewport">
+        <div class="pc-testi-track" id="testiTrack"></div>
+      </div>
+      <div class="pc-testi-controls">
+        <button class="pc-testi-btn" id="testiPrev" aria-label="Previous testimonial">&#8249;</button>
+        <div class="pc-testi-dots" id="testiDots"></div>
+        <button class="pc-testi-btn" id="testiNext" aria-label="Next testimonial">&#8250;</button>
+      </div>
+    </div>
+
+    <div class="pc-testi-cta">
+      <a href="testimonials/">
+        View All Testimonials
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     HOW ADOPTION WORKS
+     ════════════════════════════════════════════════════════════════ -->
+<section class="pc-how-section">
+  <div class="pc-section-head">
+    <span class="eyebrow">Simple Process</span>
+    <h2>How Adoption Works</h2>
+    <p>We've made the adoption process as easy and joyful as possible. Here's how to bring your new best friend home.</p>
+  </div>
+  <div class="pc-how-steps">
+    <div class="pc-how-step">
+      <div class="pc-how-num">1</div>
+      <h4>Browse Pets</h4>
+      <p>Explore dogs, cats, birds, reptiles, and small mammals available for adoption on our website.</p>
+    </div>
+    <div class="pc-how-step">
+      <div class="pc-how-num">2</div>
+      <h4>Pick Your Pet</h4>
+      <p>Find the one that speaks to your heart. Read their story, health info, and personality traits.</p>
+    </div>
+    <div class="pc-how-step">
+      <div class="pc-how-num">3</div>
+      <h4>Apply to Adopt</h4>
+      <p>Fill out a straightforward adoption application on the pet's detail page. It takes just minutes.</p>
+    </div>
+    <div class="pc-how-step">
+      <div class="pc-how-num">4</div>
+      <h4>Get Approved</h4>
+      <p>Our team reviews your application within 1–2 business hours and notifies you by adoption code.</p>
+    </div>
+    <div class="pc-how-step">
+      <div class="pc-how-num">5</div>
+      <h4>Bring Them Home</h4>
+      <p>Complete checkout and arrange delivery or local pickup. Your new family member is on the way!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════════════ -->
+<footer class="pc-footer">
+  <div class="pc-footer__inner">
+    <div class="pc-footer__top">
+      <div class="pc-footer__brand">
+        <img src="assets/images/logo-petcenter.png" alt="Pet Center">
+        <p>Connecting loving families with animals in need since 2018. Every adoption changes two lives.</p>
+      </div>
+      <div class="pc-footer__col">
+        <h5>Our Pets</h5>
+        <ul>
+          <li><a href="dogs.html">Dogs</a></li>
+          <li><a href="cats.html">Cats</a></li>
+          <li><a href="birds.html">Birds</a></li>
+          <li><a href="reptiles.html">Reptiles</a></li>
+          <li><a href="small-mammals.html">Small Mammals</a></li>
+        </ul>
+      </div>
+      <div class="pc-footer__col">
+        <h5>Information</h5>
+        <ul>
+          <li><a href="https://docs.petcenterco.com/adoption-policy" target="_blank" rel="noopener">About Us</a></li>
+          <li><a href="blog-home.html">Blog</a></li>
+          <li><a href="testimonials/">Testimonials</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="https://donate.petcenterco.com" target="_blank" rel="noopener">Donate</a></li>
+        </ul>
+      </div>
+      <div class="pc-footer__col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="https://docs.petcenterco.com/contact-us" target="_blank" rel="noopener">Contact Us</a></li>
+          <li><a href="adoption-application.html">Apply to Adopt</a></li>
+          <li><a href="#statusChecker">Check Application Status</a></li>
+          <li><a href="admin/index.html">Admin Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pc-footer__bottom">
+      <span class="pc-footer__copy">&copy; 2026 Pet Center. All rights reserved.</span>
+      <div class="pc-footer__links">
+        <a href="https://docs.petcenterco.com/adoption-policy" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="https://docs.petcenterco.com/contact-us" target="_blank" rel="noopener">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/preload.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+/* ════════════════════════════════════════════════════════
+   HOMEPAGE — Sticky header scroll behaviour
+   ════════════════════════════════════════════════════════ */
+(function () {
+  var header = document.getElementById('pcHeader');
+  function onScroll() {
+    if (window.scrollY > 60) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ════════════════════════════════════════════════════════
+   HAMBURGER MENU
+   ════════════════════════════════════════════════════════ */
+(function () {
+  var btn = document.getElementById('pcHamburger');
+  var menu = document.getElementById('pcMobileMenu');
+  btn.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', function (e) {
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
+/* ════════════════════════════════════════════════════════
+   STATUS CHECKER
+   ════════════════════════════════════════════════════════ */
+function esc(s) {
+  return String(s || '').replace(/[&<>"']/g, function(c){
+    return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);
+  });
+}
+
+function checkAdoptionStatus() {
+  var input = document.getElementById('statusInput');
+  var result = document.getElementById('statusResult');
+  var code = (input.value || '').trim().toUpperCase();
+  if (!code) {
+    result.style.display = 'block';
+    result.innerHTML = '<p style="color:#c0392b;font-family:Sora,sans-serif;font-size:14px;">Please enter your adoption code.</p>';
+    return;
+  }
+  result.style.display = 'block';
+  result.innerHTML = '<p style="font-family:Sora,sans-serif;font-size:14px;color:#7a6d5f;">Checking status...</p>';
+
+  fetch('/api/adoption/' + encodeURIComponent(code))
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      if (!data.success) {
+        result.innerHTML = '<div class="status-card rejected"><p style="font-family:Sora,sans-serif;font-size:14px;color:#c0392b;">' + esc(data.error || 'Code not found. Please check and try again.') + '</p></div>';
+        return;
+      }
+      var html = '';
+      if (data.status === 'PENDING') {
+        html = '<div class="status-card pending">' +
+          '<span class="status-badge badge-pending">Under Review</span>' +
+          '<div class="status-pet-row"><div class="status-pet-info">' +
+          '<h4>' + esc(data.pet_name || 'Your Pet') + '</h4>' +
+          '<p>Applicant: ' + esc(data.applicant_name) + '</p>' +
+          '<p>Code: ' + esc(data.adoption_code) + '</p>' +
+          '</div></div>' +
+          '<p style="font-family:Sora,sans-serif;font-size:14px;color:#7a6d5f;">Your application is under review. Please check back in 1–2 hours.</p>' +
+          '</div>';
+      } else if (data.status === 'APPROVED') {
+        var imgHtml = data.pet_image_url
+          ? '<img class="status-pet-img" src="' + esc(data.pet_image_url) + '" alt="' + esc(data.pet_name) + '" onerror="this.style.display=\'none\'">'
+          : '';
+        html = '<div class="status-card approved">' +
+          '<span class="status-badge badge-approved">Approved</span>' +
+          '<div class="status-pet-row">' + imgHtml +
+          '<div class="status-pet-info">' +
+          '<h4>' + esc(data.pet_name || 'Your Pet') + '</h4>' +
+          '<p>Congratulations, ' + esc(data.applicant_name) + '!</p>' +
+          '</div></div>' +
+          '<div class="status-payment-box">' +
+          '<h5>Your Flexible Payment Options</h5>' +
+          '<ul>' +
+          '<li><strong>BNPL (Buy Now Pay Later):</strong> Select "Apply for BNPL" during checkout in the card checkout option. It takes about 2–5 minutes to apply and is reviewed within 24 hours. Once approved, your pet is usually shipped or delivered locally the same day.</li>' +
+          '<li><strong>Pay on Delivery:</strong> Adopt your pet and pay only when you receive them at home.</li>' +
+          '<li><strong>Installment Plans (Pay in 4):</strong> Pay for your pet in 4 installment payments over the months using your PayPal account, or choose our in-house installment option for more flexibility. To set up either plan, contact customer support — they will help you configure it.</li>' +
+          '</ul></div>' +
+          (data.checkout_url ? '<a href="' + esc(data.checkout_url) + '" class="status-checkout-btn" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Proceed to Checkout</a>' : '') +
+          '</div>';
+      } else if (data.status === 'REJECTED') {
+        html = '<div class="status-card rejected">' +
+          '<span class="status-badge badge-rejected">Not Approved</span>' +
+          '<p style="font-family:Sora,sans-serif;font-size:14px;color:#3d2817;margin-bottom:10px;">Your application for <strong>' + esc(data.pet_name) + '</strong> was not approved.</p>' +
+          (data.rejection_notes ? '<p style="font-family:Sora,sans-serif;font-size:13px;color:#7a6d5f;margin-bottom:14px;"><strong>Reason:</strong> ' + esc(data.rejection_notes) + '</p>' : '') +
+          '<a href="https://docs.petcenterco.com/contact-us" target="_blank" rel="noopener" style="font-family:Sora,sans-serif;font-size:13px;color:#ED7624;">Contact us for more information</a>' +
+          '</div>';
+      }
+      result.innerHTML = html;
+    })
+    .catch(function() {
+      result.innerHTML = '<div class="status-card rejected"><p style="font-family:Sora,sans-serif;font-size:14px;color:#c0392b;">Network error. Please try again.</p></div>';
+    });
+}
+
+document.getElementById('statusInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkAdoptionStatus();
+});
+
+/* ════════════════════════════════════════════════════════
+   MOST RECENT PETS — Load from all categories
+   ════════════════════════════════════════════════════════ */
+(function () {
+  var CATEGORIES = ['dogs','cats','birds','reptiles','small-mammals'];
+  var CAT_COLORS = {dogs:'',cats:'cat-btn',birds:'bird-btn',reptiles:'rep-btn','small-mammals':'sm-btn'};
+
+  function fmt(n) { return '$' + Number(n||0).toLocaleString('en-US',{minimumFractionDigits:0}); }
+  function fmtAge(n) {
+    n = parseFloat(n);
+    if (!n) return 'Age unknown';
+    return n < 1 ? Math.round(n*12)+' mo' : n===1?'1 yr':n+' yrs';
+  }
+
+  function buildPetCard(pet) {
+    var cat = pet.category || 'dogs';
+    var btnClass = CAT_COLORS[cat] || '';
+    var adopted = pet.status === 'Adopted';
+    var imgUrl = pet.single_image_url || 'assets/images/pet-placeholder.svg';
+    var tags = (pet.temperament || []).slice(0,3).map(function(t){
+      return '<span class="pc-pet-card__tag">' + esc(t) + '</span>';
+    }).join('');
+
+    return '<a href="pet-detail.html?pet_id=' + esc(pet.pet_id) + '&category=' + esc(cat) + '" class="pc-pet-card">' +
+      '<div class="pc-pet-card__img-wrap">' +
+      '<img src="' + esc(imgUrl) + '" alt="' + esc(pet.name) + '" loading="lazy" onerror="this.src=\'assets/images/pet-placeholder.svg\'">' +
+      (adopted ? '<span class="pc-pet-card__adopted-badge">Adopted</span>' : '') +
+      '</div>' +
+      '<div class="pc-pet-card__body">' +
+      '<div class="pc-pet-card__category">' + esc(cat) + '</div>' +
+      '<div class="pc-pet-card__name">' + esc(pet.name || 'Unknown') + '</div>' +
+      '<div class="pc-pet-card__meta">' + esc(pet.breed||'') + (pet.breed&&pet.age_years?' &bull; ':'') + fmtAge(pet.age_years) + (pet.size?' &bull; '+esc(pet.size):'') + '</div>' +
+      (tags ? '<div class="pc-pet-card__tags">' + tags + '</div>' : '') +
+      '<div class="pc-pet-card__footer">' +
+      '<span class="pc-pet-card__fee">' + fmt(pet.adoption_fee) + '</span>' +
+      (!adopted ? '<a href="adoption-application.html?pet_id=' + esc(pet.pet_id) + '&category=' + esc(cat) + '" class="pc-pet-card__btn ' + btnClass + '" onclick="event.stopPropagation()">Adopt ' + esc((pet.name||'').split(' ')[0]) + '</a>' : '') +
+      '</div></div></a>';
+  }
+
+  Promise.all(CATEGORIES.map(function(cat){
+    return fetch('/api/pets/' + cat).then(function(r){ return r.json(); }).then(function(d){ return d.pets||[]; }).catch(function(){ return []; });
+  })).then(function(results) {
+    var all = [];
+    results.forEach(function(pets){ all = all.concat(pets); });
+    all.sort(function(a,b){ return new Date(b.created_at||0) - new Date(a.created_at||0); });
+    var recent = all.slice(0,6);
+    var grid = document.getElementById('recentPetsGrid');
+    if (!grid) return;
+    if (!recent.length) {
+      grid.innerHTML = '<div class="pc-pets-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d0c3ba" stroke-width="1.5" style="margin:0 auto 12px;display:block;"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l1.06 1.06L12 21.23l7.36-7.94 1.06-1.06a5.4 5.4 0 0 0 0-7.65z"/></svg><p style="font-family:Sora,sans-serif;color:#b0a69a;">No pets available right now. Check back soon!</p></div>';
+      return;
+    }
+    grid.innerHTML = recent.map(buildPetCard).join('');
+  });
+})();
+
+/* ════════════════════════════════════════════════════════
+   BLOG CAROUSEL — basic prev/next (single slide)
+   ════════════════════════════════════════════════════════ */
+(function() {
+  var track = document.getElementById('blogTrack');
+  var slides = track ? track.querySelectorAll('.pc-blog-slide') : [];
+  var cur = 0;
+  var total = slides.length;
+  if (!total) return;
+  function goTo(i) {
+    cur = (i + total) % total;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+  }
+  document.getElementById('blogPrev') && document.getElementById('blogPrev').addEventListener('click', function(){ goTo(cur-1); });
+  document.getElementById('blogNext') && document.getElementById('blogNext').addEventListener('click', function(){ goTo(cur+1); });
+})();
+
+/* ════════════════════════════════════════════════════════
+   TESTIMONIALS CAROUSEL
+   ════════════════════════════════════════════════════════ */
+(function() {
+  var TESTI = [];
+  var cur = 0;
+  var timer = null;
+  var paused = false;
+  var DELAY = 4500;
+
+  function esc2(s) {
+    return String(s||'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);});
+  }
+  function stars(n) {
+    var h = '';
+    for (var i=1;i<=5;i++) h += '<span style="color:'+(i<=n?'#f59e0b':'#d1d5db')+'">&#9733;</span>';
+    return h;
+  }
+
+  function render() {
+    var track = document.getElementById('testiTrack');
+    var dots = document.getElementById('testiDots');
+    if (!track || !dots) return;
+    track.innerHTML = '';
+    dots.innerHTML = '';
+
+    TESTI.forEach(function(t, i) {
+      var replyHtml = '';
+      if (t.reply && t.reply.name && t.reply.text) {
+        var ri = (t.reply.name.split(' ').map(function(n){ return n[0]; }).join(''));
+        replyHtml = '<div class="pc-testi-reply">' +
+          '<div class="pc-testi-reply-header">' +
+          '<div class="pc-testi-reply-avatar">' + esc2(ri) + '</div>' +
+          '<div><div class="pc-testi-reply-name">' + esc2(t.reply.name) + '</div>' +
+          '<div class="pc-testi-reply-role">' + esc2(t.reply.role||'') + '</div>' +
+          '<div class="pc-testi-reply-date">' + esc2(t.reply.date||'') + '</div></div></div>' +
+          '<div class="pc-testi-reply-text">' + esc2(t.reply.text) + '</div></div>';
+      }
+
+      var card = document.createElement('div');
+      card.className = 'pc-testi-card';
+      card.innerHTML = '<div class="pc-testi-card-inner">' +
+        '<div class="pc-testi-top">' +
+        '<div class="pc-testi-avatar" style="background:' + esc2(t.color) + '">' + esc2(t.initials) + '</div>' +
+        '<div class="pc-testi-meta"><div class="pc-testi-name">' + esc2(t.name) + '</div>' +
+        '<div class="pc-testi-date">' + esc2(t.date) + '</div></div>' +
+        '<div class="pc-testi-stars">' + stars(t.rating) + '</div></div>' +
+        '<div class="pc-testi-text">' + esc2(t.text) + '</div>' +
+        replyHtml + '</div>';
+      track.appendChild(card);
+
+      var dot = document.createElement('button');
+      dot.className = 'pc-testi-dot' + (i===0?' active':'');
+      dot.setAttribute('aria-label', 'Go to testimonial '+(i+1));
+      dot.addEventListener('click', function(){ goTo(i); pauseFor(8000); });
+      dots.appendChild(dot);
+    });
+    goTo(0);
+  }
+
+  function goTo(i) {
+    var track = document.getElementById('testiTrack');
+    var dotEls = document.querySelectorAll('#testiDots .pc-testi-dot');
+    if (!track || !TESTI.length) return;
+    cur = ((i % TESTI.length) + TESTI.length) % TESTI.length;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dotEls.forEach(function(d, idx){ d.classList.toggle('active', idx===cur); });
+  }
+
+  function pauseFor(ms) {
+    paused = true;
+    clearTimeout(window._testiResume);
+    window._testiResume = setTimeout(function(){ paused = false; }, ms);
+  }
+
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(function(){ if (!paused) goTo(cur+1); }, DELAY);
+  }
+
+  var wrap = document.getElementById('testiCarouselWrap');
+  if (wrap) {
+    wrap.addEventListener('mouseenter', function(){ paused = true; });
+    wrap.addEventListener('mouseleave', function(){ paused = false; });
+  }
+
+  var prevBtn = document.getElementById('testiPrev');
+  var nextBtn = document.getElementById('testiNext');
+  if (prevBtn) prevBtn.addEventListener('click', function(){ goTo(cur-1); pauseFor(8000); });
+  if (nextBtn) nextBtn.addEventListener('click', function(){ goTo(cur+1); pauseFor(8000); });
+
+  fetch('/testimonials/testimonials.json')
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      TESTI = (data.testimonials || []).slice(0, 8);
+      if (TESTI.length) { render(); startTimer(); }
+    })
+    .catch(function(e) { console.warn('Testimonials load error:', e); });
+})();
+</script>
+</body>
+</html>

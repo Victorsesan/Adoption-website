@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="img/fav.png">
+  <meta name="author" content="Pet Center">
+  <meta name="description" content="The Complete First-Time Adopter's Guide to Bringing a Dog Home — Pet Center Adoption Blog">
+  <meta charset="UTF-8">
+  <title>First-Time Dog Adoption Guide — Pet Center Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/linearicons.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/animate.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .pc-article-hero {
+      background: linear-gradient(120deg, #10214b 0%, #1a3070 60%, #2a4080 100%);
+      padding: 100px 0 48px; position: relative; overflow: hidden;
+    }
+    .pc-article-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('img/header-bg.jpg') center/cover no-repeat; opacity: 0.15;
+    }
+    .pc-article-hero__inner { position: relative; z-index: 1; }
+    .pc-article-hero .pc-blog-tag {
+      display: inline-block;
+      font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: #d7bd88;
+      background: rgba(215,189,136,0.12); border: 1px solid rgba(215,189,136,0.3);
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .pc-article-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 52px); font-weight: 700;
+      color: #fff; line-height: 1.1; margin-bottom: 20px;
+    }
+    .pc-article-meta {
+      font-family: 'Sora', sans-serif; font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
+    }
+    .pc-article-meta span { display: flex; align-items: center; gap: 6px; }
+    /* Article body */
+    .pc-article-body {
+      font-family: 'Sora', sans-serif; font-size: 16px;
+      line-height: 1.85; color: #3a3028;
+    }
+    .pc-article-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 700; color: #10214b;
+      margin: 48px 0 16px; line-height: 1.2;
+    }
+    .pc-article-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 700; color: #10214b;
+      margin: 32px 0 12px;
+    }
+    .pc-article-body p { margin-bottom: 20px; }
+    .pc-article-body ul, .pc-article-body ol {
+      padding-left: 24px; margin-bottom: 20px;
+    }
+    .pc-article-body li { margin-bottom: 8px; }
+    .pc-article-body strong { color: #10214b; }
+    .pc-article-callout {
+      background: linear-gradient(135deg, rgba(16,33,75,0.05), rgba(16,33,75,0.02));
+      border-left: 4px solid #d7bd88;
+      border-radius: 0 12px 12px 0;
+      padding: 24px 28px; margin: 32px 0;
+    }
+    .pc-article-callout p {
+      margin: 0; font-style: italic; font-size: 17px;
+      color: #10214b; font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    }
+    .pc-article-checklist {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(16,33,75,0.08);
+      padding: 28px; margin: 32px 0;
+    }
+    .pc-article-checklist h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 700; color: #10214b;
+      margin-bottom: 16px; border-bottom: 2px solid #d7bd88; padding-bottom: 10px;
+    }
+    .pc-article-checklist ul { list-style: none; padding: 0; margin: 0; }
+    .pc-article-checklist li {
+      padding: 8px 0; border-bottom: 1px solid #f0ebe4;
+      font-family: 'Sora', sans-serif; font-size: 14px; color: #3a3028;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .pc-article-checklist li:last-child { border-bottom: none; }
+    .pc-article-checklist li::before {
+      content: ''; width: 18px; height: 18px; flex-shrink: 0;
+      background: #10214b; border-radius: 50%; margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: 11px; background-repeat: no-repeat; background-position: center;
+    }
+    .pc-step-block {
+      display: grid; grid-template-columns: 48px 1fr; gap: 20px;
+      margin-bottom: 32px; align-items: flex-start;
+    }
+    .pc-step-number {
+      width: 48px; height: 48px; background: #10214b;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700;
+      color: #d7bd88; flex-shrink: 0;
+    }
+    .pc-step-content h3 { margin-top: 10px; }
+    /* Author card */
+    .pc-author-card {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(16,33,75,0.08);
+      padding: 28px; display: flex; gap: 20px; align-items: flex-start;
+    }
+    .pc-author-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg,#10214b,#2a4080);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: #d7bd88; font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 700;
+    }
+    .pc-author-card h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 700; color: #10214b; margin-bottom: 4px;
+    }
+    .pc-author-card p {
+      font-family: 'Sora', sans-serif; font-size: 13px;
+      color: #5a5048; margin: 0; line-height: 1.6;
+    }
+    /* Navigation */
+    .pc-post-nav {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 48px 0;
+    }
+    @media(max-width:576px){ .pc-post-nav { grid-template-columns: 1fr; } }
+    .pc-post-nav__item {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(16,33,75,0.08);
+      padding: 20px 24px; text-decoration: none;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .pc-post-nav__item:hover {
+      box-shadow: 0 6px 24px rgba(16,33,75,0.13);
+      transform: translateY(-2px); text-decoration: none;
+    }
+    .pc-post-nav__label {
+      font-family: 'Sora', sans-serif; font-size: 11px;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: #9a8e82; margin-bottom: 6px;
+    }
+    .pc-post-nav__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 700; color: #10214b; line-height: 1.3;
+    }
+    /* Sidebar */
+    .pc-sidebar-widget {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(16,33,75,0.07);
+      padding: 28px; margin-bottom: 24px;
+    }
+    .pc-sidebar-widget h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 700; color: #10214b;
+      margin-bottom: 18px; padding-bottom: 12px;
+      border-bottom: 2px solid #d7bd88;
+    }
+    .pc-sidebar-link-list { list-style: none; margin: 0; padding: 0; }
+    .pc-sidebar-link-list li {
+      padding: 9px 0; border-bottom: 1px solid #f0ebe4;
+      font-family: 'Sora', sans-serif; font-size: 13.5px;
+    }
+    .pc-sidebar-link-list li:last-child { border-bottom: none; }
+    .pc-sidebar-link-list a { color: #10214b; text-decoration: none; transition: color .2s; }
+    .pc-sidebar-link-list a:hover { color: #ED7624; }
+  </style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container main-menu">
+    <div class="row align-items-center justify-content-between d-flex">
+      <div id="logo">
+        <a href="index.html"><img src="img/logo.png" alt="Pet Center" title="Pet Center Adoption"></a>
+      </div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="https://docs.petcenterco.com/adoption-policy" target="_blank">About Us</a></li>
+          <li class="menu-has-children"><a href="#">Our Pets</a>
+            <ul>
+              <li><a href="dogs.html">Dogs</a></li>
+              <li><a href="cats.html">Cats</a></li>
+              <li><a href="birds.html">Birds</a></li>
+              <li><a href="reptiles.html">Reptiles</a></li>
+              <li><a href="small-mammals.html">Small Mammals</a></li>
+            </ul>
+          </li>
+          <li><a href="adoption-application.html">Apply to Adopt</a></li>
+          <li class="menu-active menu-has-children"><a href="blog-home.html">Blog</a>
+            <ul>
+              <li><a href="blog-home.html">All Posts</a></li>
+              <li><a href="blog-single.html">Adoption Guides</a></li>
+            </ul>
+          </li>
+          <li><a href="https://docs.petcenterco.com/contact-us" target="_blank">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Article Hero -->
+<section class="pc-article-hero">
+  <div class="container">
+    <div class="pc-article-hero__inner">
+      <!-- Breadcrumb -->
+      <nav style="margin-bottom:24px;">
+        <span style="font-family:'Sora',sans-serif;font-size:12px;color:rgba(255,255,255,0.5);">
+          <a href="index.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Home</a>
+          &nbsp;&rarr;&nbsp;
+          <a href="blog-home.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Blog</a>
+          &nbsp;&rarr;&nbsp;
+          <span style="color:rgba(255,255,255,0.8);">Dog Adoption Guide</span>
+        </span>
+      </nav>
+      <span class="pc-blog-tag">Featured &bull; Adoption Guides</span>
+      <h1>The Complete First-Time Adopter's Guide<br>to Bringing a Dog Home</h1>
+      <div class="pc-article-meta">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          By Pet Center Team
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          May 20, 2026
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          8 min read
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Article Content -->
+<section class="pc-section" style="background:#f8f5f0;">
+  <div class="pc-container">
+    <div class="row">
+
+      <!-- Main Article -->
+      <div class="col-lg-8">
+        <div style="background:#fff;border-radius:16px;box-shadow:0 2px 20px rgba(16,33,75,0.08);padding:48px;margin-bottom:32px;">
+          <div class="pc-article-body">
+
+            <p style="font-size:18px;font-weight:500;color:#10214b;line-height:1.7;">
+              Adopting a dog for the first time is one of the most meaningful things you can do — for you and for an animal who desperately needs a loving home. But the first few weeks can feel overwhelming if you're unprepared. This guide covers everything from the moment you choose your dog to the end of their first month with you.
+            </p>
+
+            <div class="pc-article-callout">
+              <p>"The best time to prepare for a new dog was before you adopted. The second best time is right now — which is exactly what this guide is for."</p>
+            </div>
+
+            <h2>Step 1 — Choosing the Right Dog for Your Life</h2>
+            <p>
+              Before you fall in love with a face on our website, spend some honest time thinking about your lifestyle. The biggest mistake first-time adopters make is choosing a pet based purely on appearance without considering whether that breed or energy level is actually compatible with their home, schedule, and family.
+            </p>
+            <p>
+              <strong>Ask yourself honestly:</strong> How active are you? Do you have a yard or live in an apartment? Are there young children or other animals in the house? How many hours a day will the dog be alone? What's your experience level with dogs?
+            </p>
+            <p>
+              A <strong>Golden Retriever</strong> or <strong>Labrador</strong> is usually a great first dog — sociable, trainable, and forgiving of beginner mistakes. A high-energy working breed like a Border Collie or Husky, on the other hand, may need two or more hours of daily exercise and can become destructive if under-stimulated. Senior dogs are often overlooked but can be wonderful first pets — calmer, house-trained, and deeply grateful.
+            </p>
+
+            <div class="pc-article-checklist">
+              <h4>Questions to Ask Before Choosing Your Dog</h4>
+              <ul>
+                <li>What is the dog's energy level — low, medium, or high?</li>
+                <li>Is this breed or dog known to be good with children?</li>
+                <li>Does this dog have a history of living with other animals?</li>
+                <li>Is the dog house-trained, or will that require significant effort?</li>
+                <li>Does this dog have any known behavioral challenges?</li>
+                <li>What is the dog's approximate exercise requirement per day?</li>
+                <li>Are there any known health issues or ongoing medical costs?</li>
+              </ul>
+            </div>
+
+            <h2>Step 2 — Before Your Dog Arrives: Setting Up Your Home</h2>
+            <p>
+              The 48 hours before your dog arrives are precious. You want your home to be safe, welcoming, and stress-free for an animal who will be experiencing enormous change.
+            </p>
+
+            <div class="pc-step-block">
+              <div class="pc-step-number">1</div>
+              <div class="pc-step-content">
+                <h3>Designate a quiet space</h3>
+                <p>Set up a crate, dog bed, or corner of a room that belongs entirely to your new dog. This becomes their safe zone — a place they can retreat to when overwhelmed. Don't force them into it; let them discover it on their own with a treat hidden inside.</p>
+              </div>
+            </div>
+
+            <div class="pc-step-block">
+              <div class="pc-step-number">2</div>
+              <div class="pc-step-content">
+                <h3>Remove hazards</h3>
+                <p>Walk through every room at dog level. Secure electrical cords, remove toxic plants (lilies, poinsettias, aloe vera are all dangerous), put cleaning products in locked cabinets, and ensure trash cans are secured. Chocolate, grapes, raisins, xylitol, macadamia nuts, and onions are all toxic to dogs — even in small quantities.</p>
+              </div>
+            </div>
+
+            <div class="pc-step-block">
+              <div class="pc-step-number">3</div>
+              <div class="pc-step-content">
+                <h3>Stock the essentials</h3>
+                <p>You'll need: a collar and ID tag (have it ready before they arrive), a leash (6-foot flat leash for beginners), food and water bowls, age-appropriate food (ask us or your vet what the dog has been eating), a crate or bed, a few durable toys, enzymatic cleaner for accidents, and poop bags.</p>
+              </div>
+            </div>
+
+            <div class="pc-step-block">
+              <div class="pc-step-number">4</div>
+              <div class="pc-step-content">
+                <h3>Book a vet appointment</h3>
+                <p>Schedule your new dog's first vet visit within 48 hours of bringing them home. Even if their vaccinations are current, you want a baseline health check and a chance to establish a relationship with your vet early.</p>
+              </div>
+            </div>
+
+            <h2>Step 3 — The First Night Home</h2>
+            <p>
+              The first night is almost always the hardest — for both of you. Your new dog has just left everything familiar: the shelter, the smells, the routines, and the people they knew. They may whine, refuse food, or hide. This is entirely normal.
+            </p>
+            <p>
+              Keep the environment as quiet and calm as possible. Limit the number of people visiting in the first 24 hours. Don't overwhelm them with attention — let them come to you. If they're crate-trained, place the crate in your bedroom for the first few nights so they can hear and smell you.
+            </p>
+
+            <div class="pc-article-callout">
+              <p>"Resist the urge to let your dog sleep in your bed on night one, even if they seem to want it. Establishing boundaries early makes everything easier — including your dog's sense of security."</p>
+            </div>
+
+            <h2>Step 4 — The First Two Weeks: The Decompression Period</h2>
+            <p>
+              Most dog behavior experts refer to the first two weeks as the <strong>"decompression period."</strong> During this time, your dog is adjusting to an entirely new world. They may seem shut down, anxious, or on edge. Or they may seem perfectly fine — only to start showing behavioral quirks at the two or three-week mark when they fully relax and their true personality emerges.
+            </p>
+            <p>
+              The rule of thumb during decompression: <strong>less is more.</strong> Limit outings, visitors, new experiences, and big changes. Stick to a predictable daily routine — same feeding times, same walk route, same sleep schedule. Dogs regulate their anxiety through predictability.
+            </p>
+
+            <ul>
+              <li><strong>Feeding:</strong> Feed twice daily at fixed times. Measure portions carefully — obesity is one of the most common health issues in adopted dogs.</li>
+              <li><strong>Walks:</strong> Start with short, low-stimulation walks. Let your dog sniff — sniffing is mentally exhausting for dogs and reduces anxiety more effectively than running.</li>
+              <li><strong>Socialization:</strong> Wait until week two before introducing your dog to new dogs or large groups of people.</li>
+              <li><strong>Training:</strong> Start with just sit, stay, and come. Five minutes, twice daily. Keep it positive and end on success.</li>
+            </ul>
+
+            <h2>Step 5 — Building Trust for Life</h2>
+            <p>
+              Trust is built in thousands of small moments, not grand gestures. Every time you respond calmly to your dog's fear, redirect unwanted behavior without punishment, follow through on routines, and meet their needs — you are building a relationship that will last for the animal's entire life.
+            </p>
+            <p>
+              Adopted dogs, especially rescues, often have complex histories that even their fosters don't fully know. If your dog shows fear, aggression, or severe anxiety, consult a certified professional trainer who uses positive reinforcement methods — not punishment, dominance theory, or shock collars.
+            </p>
+            <p>
+              The most important thing to remember: patience is not passive. It's an active choice you make every single day, in every small interaction.
+            </p>
+
+            <div class="pc-article-checklist">
+              <h4>30-Day First Month Checklist</h4>
+              <ul>
+                <li>Vet appointment booked and completed within 48 hours</li>
+                <li>ID tag and microchip registration updated with your contact information</li>
+                <li>Dog's feeding routine established (same times, same bowl, same spot)</li>
+                <li>Crate or bed location chosen and dog sleeping through the night</li>
+                <li>First walk completed on leash without incident</li>
+                <li>Basic commands: sit, stay, come — introduced and practiced daily</li>
+                <li>Emergency vet number saved in your phone</li>
+                <li>Pet insurance researched or enrolled</li>
+                <li>House training routine established (puppies: every 2 hours; adults: 3-4 times daily)</li>
+                <li>End of week 4: dog is settling, eating well, and showing their real personality</li>
+              </ul>
+            </div>
+
+            <h2>You're Ready</h2>
+            <p>
+              You don't need to be perfect. You just need to show up consistently, stay patient longer than feels natural, and remember that what feels chaotic in week one is almost always resolved by week six. Dogs are remarkably adaptable when given safety, routine, and love.
+            </p>
+            <p>
+              If you're ready to take the next step, browse our available dogs and start your adoption application today. Every dog on our platform has been assessed by our team and comes with health documentation, vaccination records, and detailed personality notes to help you make the right match.
+            </p>
+
+            <div style="background:linear-gradient(135deg,#10214b,#1a3070);border-radius:12px;padding:28px;text-align:center;margin-top:32px;">
+              <h4 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#d7bd88;margin-bottom:10px;">Ready to Meet Your Dog?</h4>
+              <p style="font-family:'Sora',sans-serif;font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:20px;">Browse all available dogs and start your adoption application. The whole process takes less than 15 minutes.</p>
+              <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                <a href="dogs.html" class="pc-btn pc-btn--orange">Browse Dogs</a>
+                <a href="adoption-application.html" class="pc-btn" style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.3);">Start Application</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Author -->
+        <div class="pc-author-card" style="margin-bottom:32px;">
+          <div class="pc-author-avatar">P</div>
+          <div>
+            <h5>Pet Center Team</h5>
+            <p>Our adoption specialists have helped over 2,400 animals find forever homes across the United States. We write practical, experience-based guides for first-time and experienced pet owners alike.</p>
+          </div>
+        </div>
+
+        <!-- Post Navigation -->
+        <div class="pc-post-nav">
+          <a href="blog-home.html" class="pc-post-nav__item">
+            <div class="pc-post-nav__label">&larr; Previous Post</div>
+            <div class="pc-post-nav__title">5 Things No One Tells You Before Adopting a Cat</div>
+          </a>
+          <a href="blog-home.html" class="pc-post-nav__item" style="text-align:right;">
+            <div class="pc-post-nav__label">Next Post &rarr;</div>
+            <div class="pc-post-nav__title">Pet-Proofing Your Home: Room-by-Room Checklist</div>
+          </a>
+        </div>
+
+      </div>
+      <!-- End Main Article -->
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+
+        <div class="pc-sidebar-widget">
+          <h5>Start Your Adoption</h5>
+          <p style="font-family:'Sora',sans-serif;font-size:13px;color:#5a5048;margin-bottom:16px;">
+            Found a pet you love? The adoption application takes about 10–15 minutes to complete.
+          </p>
+          <a href="adoption-application.html" class="pc-btn pc-btn--orange" style="justify-content:center;width:100%;margin-bottom:10px;">Apply to Adopt</a>
+          <a href="dogs.html" class="pc-btn pc-btn--primary" style="justify-content:center;width:100%;">Browse Available Dogs</a>
+        </div>
+
+        <div class="pc-sidebar-widget">
+          <h5>Related Posts</h5>
+          <ul class="pc-sidebar-link-list">
+            <li><a href="blog-home.html">5 Things No One Tells You Before Adopting a Cat</a></li>
+            <li><a href="blog-home.html">Pet-Proofing Your Home: Room-by-Room Checklist</a></li>
+            <li><a href="blog-home.html">The First 30 Days: Building Trust With Your New Pet</a></li>
+            <li><a href="blog-home.html">Your New Pet's First Vet Visit: What to Expect</a></li>
+            <li><a href="blog-home.html">Positive Reinforcement 101: Training Without Punishment</a></li>
+          </ul>
+        </div>
+
+        <div class="pc-sidebar-widget">
+          <h5>Check Application Status</h5>
+          <p style="font-family:'Sora',sans-serif;font-size:13px;color:#5a5048;margin-bottom:16px;">
+            Already submitted an application? Check your status instantly with your adoption code.
+          </p>
+          <a href="index.html#status-checker" class="pc-btn pc-btn--primary" style="justify-content:center;width:100%;">Check My Status</a>
+        </div>
+
+        <div style="background:linear-gradient(135deg,#10214b,#1a3070);border-radius:12px;padding:28px;text-align:center;">
+          <h5 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#d7bd88;margin-bottom:10px;">All Pet Categories</h5>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a href="dogs.html" style="font-family:'Sora',sans-serif;font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">Dogs &rarr;</a>
+            <a href="cats.html" style="font-family:'Sora',sans-serif;font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">Cats &rarr;</a>
+            <a href="birds.html" style="font-family:'Sora',sans-serif;font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">Birds &rarr;</a>
+            <a href="reptiles.html" style="font-family:'Sora',sans-serif;font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">Reptiles &rarr;</a>
+            <a href="small-mammals.html" style="font-family:'Sora',sans-serif;font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;padding:8px 0;">Small Mammals &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Sidebar -->
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-area">
+  <div class="container">
+    <div class="row pt-120 pb-80">
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget">
+          <h6>Pet Center Adoption</h6>
+          <p>We connect loving families with adoptable pets across all categories. Every pet deserves a forever home — let us help you find yours.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget">
+          <h6>Quick Links</h6>
+          <div class="row">
+            <ul class="col footer-nav">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="dogs.html">Dogs</a></li>
+              <li><a href="cats.html">Cats</a></li>
+              <li><a href="blog-home.html">Blog</a></li>
+            </ul>
+            <ul class="col footer-nav">
+              <li><a href="reptiles.html">Reptiles</a></li>
+              <li><a href="small-mammals.html">Small Mammals</a></li>
+              <li><a href="adoption-application.html">Apply</a></li>
+              <li><a href="https://docs.petcenterco.com/contact-us" target="_blank">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget mail-chimp">
+          <h6 class="mb-20">Contact Us</h6>
+          <ul class="list-contact">
+            <li class="flex-row d-flex">
+              <div class="icon"><span class="lnr lnr-home"></span></div>
+              <div class="detail">
+                <h4>Binghamton, New York</h4>
+                <p>4343 Hinkle Deegan Lake Road</p>
+              </div>
+            </li>
+            <li class="flex-row d-flex">
+              <div class="icon"><span class="lnr lnr-envelope"></span></div>
+              <div class="detail">
+                <h4>adopt@petcenterco.com</h4>
+                <p>Send us your query anytime!</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright-text">
+    <div class="container">
+      <div class="row footer-bottom d-flex justify-content-between">
+        <p class="col-lg-8 col-sm-6 footer-text m-0 text-white">
+          Copyright &copy;<script>document.write(new Date().getFullYear());</script> Pet Center Adoption. All rights reserved.
+        </p>
+        <div class="col-lg-4 col-sm-6 footer-social">
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/easing.min.js"></script>
+<script src="js/hoverIntent.js"></script>
+<script src="js/superfish.min.js"></script>
+<script src="js/main.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

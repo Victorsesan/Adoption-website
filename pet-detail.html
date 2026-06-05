@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="img/fav.png">
+  <meta charset="UTF-8">
+  <meta name="description" content="Pet adoption details — Pet Center">
+  <title id="pageTitle">Pet Details — Pet Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/linearicons.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header id="header">
+  <div class="container main-menu">
+    <div class="row align-items-center justify-content-between d-flex">
+      <div id="logo"><a href="index.html"><img src="img/logo.png" alt="Pet Center"></a></div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="https://docs.petcenterco.com/adoption-policy" target="_blank">About Us</a></li>
+          <li class="menu-has-children"><a href="#">Our Pets</a>
+            <ul>
+              <li><a href="dogs.html">Dogs</a></li>
+              <li><a href="cats.html">Cats</a></li>
+              <li><a href="birds.html">Birds</a></li>
+              <li><a href="reptiles.html">Reptiles</a></li>
+              <li><a href="small-mammals.html">Small Mammals</a></li>
+            </ul>
+          </li>
+          <li><a href="adoption-application.html">Apply to Adopt</a></li>
+          <li><a href="https://docs.petcenterco.com/contact-us" target="_blank">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Breadcrumb / sub-banner -->
+<section class="banner-area relative" id="home">
+  <div class="overlay overlay-bg"></div>
+  <div class="container">
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="about-content col-lg-12">
+        <h1 class="text-white" id="bannerTitle">Pet Details</h1>
+        <p class="text-white link-nav" id="bannerCrumb">
+          <a href="index.html">Home</a>
+          <span class="lnr lnr-arrow-right"></span>
+          <a href="#" id="crumbCategory">Pets</a>
+          <span class="lnr lnr-arrow-right"></span>
+          <span id="crumbName">Loading...</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Loading state -->
+<div id="petDetailLoading" class="pc-section">
+  <div class="pc-container">
+    <div style="display:grid;grid-template-columns:1fr 380px;gap:40px;">
+      <div class="pc-skeleton" style="height:400px;border-radius:16px;"></div>
+      <div>
+        <div class="pc-skeleton" style="height:40px;border-radius:8px;margin-bottom:16px;"></div>
+        <div class="pc-skeleton" style="height:24px;border-radius:8px;margin-bottom:12px;width:60%;"></div>
+        <div class="pc-skeleton" style="height:200px;border-radius:12px;margin-bottom:16px;"></div>
+        <div class="pc-skeleton" style="height:52px;border-radius:8px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pet detail content -->
+<div id="petDetailContent" style="display:none;">
+  <section class="pc-section">
+    <div class="pc-container">
+      <div class="pc-pet-detail-hero">
+
+        <!-- Gallery -->
+        <div class="pc-pet-detail-gallery">
+          <div class="pc-gallery-main">
+            <img id="galleryMain" src="/assets/images/pet-placeholder.svg" alt="Pet photo" onerror="this.src='/assets/images/pet-placeholder.svg'">
+          </div>
+          <div class="pc-gallery-thumbs" id="galleryThumbs"></div>
+        </div>
+
+        <!-- Info panel -->
+        <div class="pc-pet-info-panel">
+          <div style="margin-bottom:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ED7624;" id="petCategory">—</div>
+          <div class="pc-pet-info-panel__name" id="petName">Loading...</div>
+          <div class="pc-pet-info-panel__fee" id="petFee">—</div>
+
+          <div class="pc-pet-info-grid">
+            <div class="pc-pet-info-item">
+              <div class="pc-pet-info-item__label">Breed</div>
+              <div class="pc-pet-info-item__value" id="petBreed">—</div>
+            </div>
+            <div class="pc-pet-info-item">
+              <div class="pc-pet-info-item__label">Age</div>
+              <div class="pc-pet-info-item__value" id="petAge">—</div>
+            </div>
+            <div class="pc-pet-info-item">
+              <div class="pc-pet-info-item__label">Size</div>
+              <div class="pc-pet-info-item__value" id="petSize">—</div>
+            </div>
+            <div class="pc-pet-info-item">
+              <div class="pc-pet-info-item__label">Status</div>
+              <div class="pc-pet-info-item__value" id="petStatus">—</div>
+            </div>
+            <div class="pc-pet-info-item" style="grid-column:1/-1;">
+              <div class="pc-pet-info-item__label">Health</div>
+              <div class="pc-pet-info-item__value" id="petHealth">—</div>
+            </div>
+          </div>
+
+          <p id="petDescription" style="color:#7a6d5f;font-size:14px;line-height:1.7;margin-bottom:24px;"></p>
+
+          <div id="adoptBtn">
+            <a href="#" class="pc-btn pc-btn--orange pc-btn--lg" id="applyBtn" style="width:100%;justify-content:center;margin-bottom:12px;">
+              Apply to Adopt
+            </a>
+            <p style="font-size:12px;color:#7a6d5f;text-align:center;">
+              You'll receive an adoption code to track your application status.
+            </p>
+          </div>
+
+          <div id="adoptedMsg" style="display:none;background:#f9f7f4;border-radius:12px;padding:20px;text-align:center;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#10214b;margin-bottom:8px;">This pet has been adopted</div>
+            <p style="font-size:13px;color:#7a6d5f;margin-bottom:16px;">Check our other available pets below.</p>
+            <a href="#" id="morePetsLink" class="pc-btn pc-btn--primary">Browse More Pets</a>
+          </div>
+
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid #f0ece8;">
+            <p style="font-size:12px;color:#b0a398;text-align:center;">Pet ID: <strong id="petId" style="font-family:monospace;color:#10214b;">—</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full description section -->
+      <div id="fullDescSection" style="margin-top:48px;display:none;">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:#10214b;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #d7bd88;">About <span id="fullDescName"></span></h2>
+        <p id="fullDescription" style="color:#7a6d5f;font-size:15px;line-height:1.8;max-width:760px;"></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Not found -->
+<div id="petDetailError" style="display:none;" class="pc-section">
+  <div class="pc-container text-center">
+    <div style="max-width:480px;margin:0 auto;padding:64px 24px;">
+      <div style="width:80px;height:80px;border-radius:50%;background:#f0ece8;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#b0a398" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <h2 style="color:#10214b;margin-bottom:12px;">Pet Not Found</h2>
+      <p style="color:#7a6d5f;margin-bottom:28px;">This pet may have been adopted or the link may be incorrect.</p>
+      <a href="index.html" class="pc-btn pc-btn--primary">Browse Available Pets</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer-area">
+  <div class="container">
+    <div class="row pt-120 pb-80">
+      <div class="col-lg-4 col-md-6"><div class="single-footer-widget"><h6>Pet Center Adoption</h6><p>Every pet deserves a loving home.</p></div></div>
+      <div class="col-lg-4 col-md-6"><div class="single-footer-widget"><h6>Our Pets</h6><div class="row"><ul class="col footer-nav"><li><a href="dogs.html">Dogs</a></li><li><a href="cats.html">Cats</a></li><li><a href="birds.html">Birds</a></li></ul><ul class="col footer-nav"><li><a href="reptiles.html">Reptiles</a></li><li><a href="small-mammals.html">Small Mammals</a></li></ul></div></div></div>
+      <div class="col-lg-4 col-md-6"><div class="single-footer-widget"><h6 class="mb-20">Contact</h6><ul class="list-contact"><li class="flex-row d-flex"><div class="icon"><span class="lnr lnr-envelope"></span></div><div class="detail"><h4>adopt@petcenterco.com</h4></div></li></ul></div></div>
+    </div>
+  </div>
+  <div class="copyright-text"><div class="container"><div class="row footer-bottom d-flex justify-content-between"><p class="col-lg-8 col-sm-6 footer-text m-0 text-white">Copyright &copy;<script>document.write(new Date().getFullYear());</script> Pet Center Adoption</p></div></div></div>
+</footer>
+
+<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/easing.min.js"></script>
+<script src="js/hoverIntent.js"></script>
+<script src="js/superfish.min.js"></script>
+<script src="js/main.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(async function () {
+  const petId = PC.param('pet_id');
+  const category = PC.param('category');
+
+  const catLabels = { dogs:'Dogs', cats:'Cats', birds:'Birds', reptiles:'Reptiles', 'small-mammals':'Small Mammals' };
+  const catPages = { dogs:'dogs.html', cats:'cats.html', birds:'birds.html', reptiles:'reptiles.html', 'small-mammals':'small-mammals.html' };
+
+  if (!petId || !category) {
+    showError();
+    return;
+  }
+
+  try {
+    const data = await fetch(`/api/pets/${encodeURIComponent(category)}/${encodeURIComponent(petId)}`).then(r => r.json());
+    if (!data.success || !data.pet) { showError(); return; }
+    renderPet(data.pet);
+  } catch (e) {
+    showError();
+  }
+
+  function renderPet(p) {
+    document.getElementById('petDetailLoading').style.display = 'none';
+    document.getElementById('petDetailContent').style.display = 'block';
+    document.title = `${p.name} — Pet Center Adoption`;
+    document.getElementById('pageTitle').textContent = `${p.name} — Pet Center`;
+    document.getElementById('bannerTitle').textContent = p.name;
+    document.getElementById('crumbName').textContent = p.name;
+
+    const catLabel = catLabels[p.category] || p.category;
+    const catPage = catPages[p.category] || 'index.html';
+    const crumbCat = document.getElementById('crumbCategory');
+    crumbCat.textContent = catLabel;
+    crumbCat.href = catPage;
+
+    document.getElementById('petCategory').textContent = catLabel;
+    document.getElementById('petName').textContent = p.name;
+    document.getElementById('petFee').textContent = PC.fmt(p.adoption_fee);
+    document.getElementById('petBreed').textContent = p.breed || '—';
+    document.getElementById('petAge').textContent = PC.age(p.age_years);
+    document.getElementById('petSize').textContent = p.size || '—';
+    document.getElementById('petHealth').textContent = p.health_info || 'Contact us for health details';
+    document.getElementById('petId').textContent = p.pet_id;
+    document.getElementById('petDescription').textContent = p.description_short || '';
+
+    // Full description
+    if (p.description_full) {
+      document.getElementById('fullDescSection').style.display = 'block';
+      document.getElementById('fullDescName').textContent = p.name;
+      document.getElementById('fullDescription').textContent = p.description_full;
+    }
+
+    // Status
+    const statusEl = document.getElementById('petStatus');
+    if (p.status === 'Adopted') {
+      statusEl.innerHTML = '<span class="pc-badge pc-badge--adopted">Adopted</span>';
+      document.getElementById('adoptBtn').style.display = 'none';
+      document.getElementById('adoptedMsg').style.display = 'block';
+      const morePetsLink = document.getElementById('morePetsLink');
+      if (morePetsLink) morePetsLink.href = catPage;
+    } else {
+      statusEl.innerHTML = '<span class="pc-badge pc-badge--available">Available</span>';
+      const applyBtn = document.getElementById('applyBtn');
+      applyBtn.href = `adoption-application.html?pet_id=${encodeURIComponent(p.pet_id)}&category=${encodeURIComponent(p.category)}`;
+    }
+
+    // Gallery
+    const mainImg = p.single_image_url || '/assets/images/pet-placeholder.svg';
+    const galleryMain = document.getElementById('galleryMain');
+    galleryMain.src = mainImg;
+    galleryMain.alt = p.name;
+
+    const thumbsEl = document.getElementById('galleryThumbs');
+    const allImages = [mainImg, ...(p.bulk_images || [])].filter(Boolean);
+
+    if (allImages.length > 1) {
+      thumbsEl.innerHTML = allImages.map((src, i) =>
+        `<div class="pc-gallery-thumb ${i === 0 ? 'active' : ''}" data-src="${PC.esc(src)}">
+          <img src="${PC.esc(src)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'">
+        </div>`
+      ).join('');
+
+      thumbsEl.querySelectorAll('.pc-gallery-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          galleryMain.src = thumb.dataset.src;
+          thumbsEl.querySelectorAll('.pc-gallery-thumb').forEach(t => t.classList.remove('active'));
+          thumb.classList.add('active');
+        });
+      });
+    }
+  }
+
+  function showError() {
+    document.getElementById('petDetailLoading').style.display = 'none';
+    document.getElementById('petDetailError').style.display = 'block';
+  }
+})();
+</script>
+</body>
+</html>

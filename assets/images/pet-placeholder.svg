@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#f0ece8"/>
+  <g fill="#d0c3ba">
+    <circle cx="200" cy="120" r="28"/>
+    <circle cx="167" cy="96" r="16"/>
+    <circle cx="233" cy="96" r="16"/>
+    <ellipse cx="200" cy="180" rx="55" ry="40"/>
+  </g>
+  <text x="200" y="255" text-anchor="middle" font-family="Sora,sans-serif" font-size="14" fill="#b0a398">Pet Image</text>
+</svg>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browse All Pets — Pet Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/preload.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{padding-top:68px;font-family:'Sora',sans-serif;background:#f9f7f4;}
+    .pc-header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(16,33,75,0.97);box-shadow:0 2px 20px rgba(0,0,0,0.18);}
+    .pc-header__logo img{height:44px;width:auto;display:block;}
+    .pc-header__nav{display:flex;align-items:center;gap:4px;list-style:none;}
+    .pc-header__nav li{position:relative;}
+    .pc-header__nav a{display:block;padding:8px 11px;font-family:'Sora',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,.9);text-decoration:none;border-radius:6px;transition:color .2s,background .2s;}
+    .pc-header__nav a:hover{color:#d7bd88;background:rgba(255,255,255,.08);}
+    .pc-header__nav .nav-donate a{background:#ED7624;color:#fff;font-weight:600;padding:8px 16px;}
+    .pc-header__nav .nav-signup a{border:1px solid rgba(215,189,136,.5);color:#d7bd88;}
+    .pc-header__nav .has-drop>ul{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#10214b;border-radius:8px;list-style:none;min-width:168px;box-shadow:0 8px 32px rgba(0,0,0,.22);padding:6px 0;z-index:100;}
+    .pc-header__nav .has-drop:hover>ul{display:block;}
+    .pc-header__nav .has-drop>ul a{padding:9px 18px;font-size:13px;border-radius:0;}
+    .pc-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+    .pc-hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;}
+    .pc-mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(16,33,75,.98);z-index:999;padding:16px 0 24px;}
+    .pc-mobile-menu.open{display:block;}
+    .pc-mobile-menu a{display:block;padding:12px 28px;font-family:'Sora',sans-serif;font-size:15px;font-weight:500;color:rgba(255,255,255,.9);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);}
+    .pc-mobile-menu .mobile-signup{margin:12px 28px 0;display:inline-block;background:rgba(215,189,136,.15);color:#d7bd88;border:1px solid rgba(215,189,136,.4);padding:11px 24px;border-radius:8px;font-weight:600;}
+    .pc-mobile-menu .mobile-donate{margin:8px 28px 0;display:inline-block;background:#ED7624;color:#fff;padding:11px 24px;border-radius:8px;font-weight:600;}
+    @media(max-width:900px){.pc-header__nav{display:none;}.pc-hamburger{display:flex;}}
+    .hero-band{background:linear-gradient(135deg,#10214b,#1a2f5c);padding:48px 24px;text-align:center;}
+    .hero-band h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3rem);color:#fff;font-weight:700;margin-bottom:10px;}
+    .hero-band p{color:rgba(255,255,255,.72);font-size:15px;}
+    .cats-grid{max-width:1100px;margin:52px auto;padding:0 24px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+    .cat-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(16,33,75,.07);transition:transform .2s,box-shadow .2s;text-decoration:none;display:flex;flex-direction:column;}
+    .cat-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(16,33,75,.14);}
+    .cat-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:64px;}
+    .cat-img.dogs-bg{background:linear-gradient(135deg,#fef3c7,#fde68a);}
+    .cat-img.cats-bg{background:linear-gradient(135deg,#fce7f3,#fbcfe8);}
+    .cat-img.birds-bg{background:linear-gradient(135deg,#dbeafe,#bfdbfe);}
+    .cat-img.reptiles-bg{background:linear-gradient(135deg,#d1fae5,#a7f3d0);}
+    .cat-img.mammals-bg{background:linear-gradient(135deg,#f3e8ff,#e9d5ff);}
+    .cat-body{padding:24px 24px 28px;display:flex;flex-direction:column;flex:1;}
+    .cat-body h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#10214b;margin-bottom:8px;}
+    .cat-body p{color:#7a6d5f;font-size:14px;line-height:1.65;flex:1;margin-bottom:20px;}
+    .cat-count{display:inline-block;background:#f3f4f6;color:#10214b;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:14px;}
+    .cat-btn{display:inline-flex;align-items:center;gap:8px;background:#10214b;color:#fff;padding:11px 22px;border-radius:8px;font-family:'Sora',sans-serif;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s;}
+    .cat-btn:hover{background:#1a2f5c;}
+  </style>
+</head>
+<body>
+<header class="pc-header" id="pcHeader">
+  <a href="/" class="pc-header__logo"><img src="/assets/images/logo-petcenter.png" alt="Pet Center"></a>
+  <ul class="pc-header__nav">
+    <li><a href="/">Home</a></li>
+    <li class="has-drop"><a href="#">Our Pets</a>
+      <ul>
+        <li><a href="/dogs.html">Dogs</a></li>
+        <li><a href="/cats.html">Cats</a></li>
+        <li><a href="/birds.html">Birds</a></li>
+        <li><a href="/reptiles.html">Reptiles</a></li>
+        <li><a href="/small-mammals.html">Small Mammals</a></li>
+      </ul>
+    </li>
+    <li><a href="/blog-home.html">Blog</a></li>
+    <li><a href="/testimonials/">Testimonials</a></li>
+    <li class="nav-donate"><a href="https://donate.petcenterco.com" target="_blank" rel="noopener">Donate</a></li>
+    <li><a href="https://docs.petcenterco.com/contact-us" target="_blank" rel="noopener">Contact</a></li>
+    <li class="nav-signup"><a href="/rehome/">Sign Up</a></li>
+  </ul>
+  <button class="pc-hamburger" id="pcHamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+<nav class="pc-mobile-menu" id="pcMobileMenu">
+  <a href="/">Home</a><a href="/dogs.html">Dogs</a><a href="/cats.html">Cats</a>
+  <a href="/birds.html">Birds</a><a href="/reptiles.html">Reptiles</a>
+  <a href="/small-mammals.html">Small Mammals</a><a href="/blog-home.html">Blog</a>
+  <a href="/testimonials/">Testimonials</a>
+  <a href="https://docs.petcenterco.com/contact-us" target="_blank">Contact</a>
+  <a href="/rehome/" class="mobile-signup">Sign Up</a>
+  <a href="https://donate.petcenterco.com" class="mobile-donate" target="_blank">Donate</a>
+</nav>
+
+<div class="hero-band">
+  <h1>Browse All Available Pets</h1>
+  <p>Explore our adoptable animals across all categories</p>
+</div>
+
+<div class="cats-grid" id="catsGrid">
+  <!-- Dynamically populated -->
+</div>
+
+<footer style="background:#10214b;color:#fff;padding:48px 24px 24px;margin-top:0;">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;margin-bottom:32px;">
+    <div>
+      <img src="/assets/images/logo-petcenter.png" alt="Pet Center" style="height:40px;margin-bottom:14px;">
+      <p style="color:rgba(255,255,255,.65);font-size:13px;line-height:1.7;">Every pet deserves a loving home.</p>
+    </div>
+    <div>
+      <h5 style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#d7bd88;margin-bottom:12px;">Visit Us</h5>
+      <p style="color:rgba(255,255,255,.7);font-size:13px;line-height:1.8;">235-269 N Beverly Dr<br>Beverly Hills, CA<br>Golden Triangle Shopping Center, Section #257</p>
+      <p style="color:rgba(255,255,255,.7);font-size:13px;line-height:1.8;margin-top:10px;"><strong style="color:#d7bd88;">Hours:</strong><br>Mon&ndash;Fri: 7:00 AM&ndash;9:00 PM<br>Sat&ndash;Sun: 10:00 AM&ndash;6:00 PM</p>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:18px;text-align:center;">
+    <span style="color:rgba(255,255,255,.45);font-size:12px;">&copy; 2026 Pet Center. All rights reserved.</span>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+(function(){
+  var btn=document.getElementById('pcHamburger');
+  var menu=document.getElementById('pcMobileMenu');
+  if(!btn||!menu)return;
+  btn.addEventListener('click',function(){var open=menu.classList.toggle('open');btn.setAttribute('aria-expanded',open);});
+  document.addEventListener('click',function(e){if(!menu.contains(e.target)&&!btn.contains(e.target)){menu.classList.remove('open');btn.setAttribute('aria-expanded','false');}});
+})();
+
+var CATEGORIES = [
+  { slug:'dogs', label:'Dogs', emoji:'🐕', bg:'dogs-bg', desc:'Browse all listed dogs for adoption. Find loyal companions, playful pups, and gentle giants.' },
+  { slug:'cats', label:'Cats', emoji:'🐱', bg:'cats-bg', desc:'Browse all listed cats for adoption. Discover independent souls, cuddly lap cats, and spirited kittens.' },
+  { slug:'birds', label:'Birds', emoji:'🦜', bg:'birds-bg', desc:'Browse all listed birds for adoption. Parrots, cockatiels, canaries, finches, and more.' },
+  { slug:'reptiles', label:'Reptiles', emoji:'🦎', bg:'reptiles-bg', desc:'Browse all listed reptiles for adoption. Lizards, snakes, geckos, turtles, and more.' },
+  { slug:'small-mammals', label:'Small Mammals', emoji:'🐰', bg:'mammals-bg', desc:'Browse all listed small mammals for adoption. Rabbits, guinea pigs, hamsters, and more.' },
+];
+
+function buildCards(counts) {
+  var grid = document.getElementById('catsGrid');
+  grid.innerHTML = CATEGORIES.map(function(c) {
+    var cnt = counts[c.slug] || 0;
+    var countLabel = cnt > 0 ? cnt + ' available' : 'Check back soon';
+    return '<a href="/' + c.slug + '.html" class="cat-card"><div class="cat-img ' + c.bg + '">' + c.emoji + '</div><div class="cat-body"><h3>' + c.label + '</h3><span class="cat-count">' + countLabel + '</span><p>' + c.desc + '</p><span class="cat-btn">Browse ' + c.label + ' <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div></a>';
+  }).join('');
+}
+
+Promise.all(CATEGORIES.map(function(c) {
+  return fetch('/api/pets/' + c.slug).then(function(r){return r.json();}).then(function(d){return {slug:c.slug, count:(d.pets||[]).filter(function(p){return p.status!=='Adopted';}).length};}).catch(function(){return {slug:c.slug, count:0};});
+})).then(function(results) {
+  var counts = {};
+  results.forEach(function(r){counts[r.slug]=r.count;});
+  buildCards(counts);
+});
+</script>
+</body>
+</html>

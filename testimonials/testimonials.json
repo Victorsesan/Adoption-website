@@ -1,0 +1,132 @@
+{
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Jennifer M.",
+      "email": "jennifer.m@email.com",
+      "date": "March 18, 2026",
+      "rating": 5,
+      "text": "Adopting through PetCenter was the best decision we made. The process was smooth, staff was incredibly helpful, and our rescue dog settled in perfectly. Highly recommend to anyone looking to give a pet a loving home.",
+      "initials": "JM",
+      "color": "#10b981",
+      "reply": {
+        "name": "Sarah Chen",
+        "role": "Adoption Coordinator",
+        "date": "March 19, 2026",
+        "text": "Thank you so much, Jennifer! We're thrilled that your rescue dog found their forever home. Your dedication to giving a second chance means everything to us. Please keep us updated!"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Michael R.",
+      "email": "michael.r@email.com",
+      "date": "March 10, 2026",
+      "rating": 3,
+      "text": "Good experience overall, but the application process took longer than expected. The staff was friendly when I finally got answers. My adopted cat is amazing though, so it was worth the wait. Just wish the communication had been faster.",
+      "initials": "MR",
+      "color": "#9ca3af",
+      "reply": {
+        "name": "David Park",
+        "role": "Operations Manager",
+        "date": "March 11, 2026",
+        "text": "Michael, we appreciate your feedback. We're working to streamline our application process. Your adopted cat is lucky to have found such a caring home. Thank you for choosing PetCenter!"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Amanda K.",
+      "email": "amanda.k@email.com",
+      "date": "February 28, 2026",
+      "rating": 4,
+      "text": "Very satisfied with my adoption experience. The staff was professional and genuinely cared about finding the right match. My rabbit has been such a joy. Only small note: the adoption fee could have been explained more upfront.",
+      "initials": "AK",
+      "color": "#0ea5e9",
+      "reply": {
+        "name": "Sarah Chen",
+        "role": "Adoption Coordinator",
+        "date": "March 1, 2026",
+        "text": "Amanda, thank you for the feedback! We're so happy you and your rabbit are bonding. We'll improve our upfront fee communication. Enjoy many happy years together!"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Robert T.",
+      "email": "robert.t@email.com",
+      "date": "February 15, 2026",
+      "rating": 2,
+      "text": "Difficult experience with the adoption process. Multiple follow-ups were needed to get information. The pet we adopted is wonderful, but getting to that point was frustrating. Communication needs serious improvement.",
+      "initials": "RT",
+      "color": "#ef4444",
+      "reply": {
+        "name": "Sarah Chen",
+        "role": "Adoption Coordinator",
+        "date": "February 16, 2026",
+        "text": "Robert, we sincerely apologize for the communication gaps. Your feedback helps us improve. Your adopted pet is lucky to have a caring home. We'd welcome a chance to make things right."
+      }
+    },
+    {
+      "id": 5,
+      "name": "Elena V.",
+      "email": "elena.v@email.com",
+      "date": "February 1, 2026",
+      "rating": 5,
+      "text": "Exceeded all expectations! From initial inquiry to bringing my new bird home, every step was handled professionally and with genuine care. The staff answered every question thoroughly. My bird is healthy and happy. Couldn't be more grateful!",
+      "initials": "EV",
+      "color": "#10b981",
+      "reply": {
+        "name": "Sarah Chen",
+        "role": "Adoption Coordinator",
+        "date": "February 2, 2026",
+        "text": "Elena, your kind words truly mean the world to us! We're honored to have helped you find your feathered friend. We'd love to hear updates on your bird's journey!"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Christopher L.",
+      "email": "christopher.l@email.com",
+      "date": "January 20, 2026",
+      "rating": 1,
+      "text": "Worst adoption experience ever. The process was confusing, staff was dismissive of my questions, and I wasn't properly informed about the pet's needs. I only give one star because the pet itself is fine, but I would never return and don't recommend this to others.",
+      "initials": "CL",
+      "color": "#dc2626",
+      "reply": {
+        "name": "Sarah Chen",
+        "role": "Adoption Coordinator",
+        "date": "January 21, 2026",
+        "text": "Christopher, we're genuinely sorry for this experience. This does not reflect our values. We'd like to understand what went wrong and make it right. Please contact us directly to discuss."
+      }
+    },
+    {
+      "id": 7,
+      "name": "Lisa H.",
+      "email": "lisa.h@email.com",
+      "date": "January 10, 2026",
+      "rating": 4,
+      "text": "Great experience overall. The adoption process was clear and the staff was supportive. The only minor issue was that the health records could have been more detailed, but the pet is healthy and doing great!",
+      "initials": "LH",
+      "color": "#0ea5e9",
+      "reply": {
+        "name": "David Park",
+        "role": "Operations Manager",
+        "date": "January 11, 2026",
+        "text": "Lisa, thank you for adopting and for the feedback! We'll ensure health records are more comprehensive going forward. Your adopted pet found the perfect home!"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Marcus W.",
+      "email": "marcus.w@email.com",
+      "date": "December 28, 2025",
+      "rating": 3,
+      "text": "Mixed feelings about this adoption. The pet is great, but the application approval took longer than stated. Communication was inconsistent - some replies were quick, others took days. I hope they improve their response times, as pets need reliable support.",
+      "initials": "MW",
+      "color": "#9ca3af",
+      "reply": {
+        "name": "Sarah Chen",
+        "role": "Adoption Coordinator",
+        "date": "December 29, 2025",
+        "text": "Marcus, thank you for the honest feedback. We're implementing faster approval processes. Your adopted pet is lucky to have such a thoughtful owner. Please reach out anytime!"
+      }
+    }
+  ]
+}

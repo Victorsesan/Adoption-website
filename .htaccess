@@ -1,0 +1,39 @@
+# Pet Center Adoption Website - .htaccess
+# URL rewriting, HTTPS enforcement, and clean URLs for Hostinger
+
+Options -Indexes
+
+# Force HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Clean URLs for pet category pages (/pets/dogs/ → /pets/dogs/index.html)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^pets/([^/]+)/?$ /pets/$1/index.html [L]
+
+# Clean URLs for individual pet detail pages (/pets/dogs/DOG-00001/)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^pets/([^/]+)/([^/]+)/?$ /pet-detail.html?category=$1&pet_id=$2 [L,QSA]
+
+# Legacy adoptions/pets path routing
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^adoptions/pets/([a-z-]+)/([A-Z0-9-]+)/?$ /pet-detail.html?category=$1&pet_id=$2 [L,QSA]
+
+# Protect sensitive files
+<Files ".env">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "*.log">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# PHP upload limits (adjust in Hostinger control panel if needed)
+php_value upload_max_filesize 10M
+php_value post_max_size 20M

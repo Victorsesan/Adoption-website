@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pet Center — Adoption Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
+<style>
+:root{--brand:#ED7624;--muted:#6b7280;--bg:#fffaf6;--paper:#fff;--max-width:1280px}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:linear-gradient(180deg,var(--bg),#fff)}
+.page{width:100%;max-width:var(--max-width);margin:18px auto;padding:12px 18px}
+
+/* HEADER: logo left, petcenter info top-right */
+.header{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:nowrap;
+}
+.logo { flex: 0 0 220px; max-width: 220px; min-width: 120px; }
+.logo img { width: 100%; height: auto; display: block; }
+@media (max-width: 780px) { .logo { flex: 0 0 140px; max-width: 140px; min-width: 90px; } }
+.header-right{
+  flex:1 1 auto;
+  min-width:160px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  text-align:right;
+}
+
+/* Title + layout */
+.title{font-family:Cormorant Garamond,serif;color:var(--brand);font-size:34px;margin:6px 0 8px}
+.small{font-size:13px;color:var(--muted)}
+.form-grid{display:grid;grid-template-columns:1fr 420px;gap:18px}
+@media (max-width:980px){.form-grid{grid-template-columns:1fr}}
+
+/* form parts */
+.section{margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(0,0,0,0.04)}
+.section h3{margin:0 0 8px;font-size:16px;font-weight:700;color:#111}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.col{flex:1;min-width:140px}
+.label{display:block;margin-bottom:6px;font-size:13px;color:#222}
+.input,select,textarea{width:100%;padding:8px 10px;border:1px solid #e6e9ee;border-radius:6px;font-size:14px;background:var(--paper)}
+textarea{min-height:84px;resize:vertical}
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media (max-width:720px){.check-grid{grid-template-columns:1fr}}
+.pets-table{width:100%;border-collapse:collapse;margin-top:8px}
+.pets-table th,.pets-table td{border:1px solid #eee;padding:8px;font-size:13px}
+
+/* file uploads */
+.file-drop{padding:12px;border-radius:8px;border:2px dashed #eee;background:linear-gradient(180deg,#fff,#fffaf6);cursor:pointer;text-align:center}
+.file-drop.dragover{border-color:var(--brand);background:linear-gradient(180deg,#fff8f0,#fffefb)}
+.uploaded-list{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+.uploaded-item{display:flex;align-items:center;gap:12px;padding:8px;background:#fff;border-radius:6px;border:1px solid #f1f5f9}
+.uploaded-item img{width:64px;height:64px;object-fit:cover;border-radius:6px;border:1px solid #ddd}
+.small-btn{background:#f3f4f6;border-radius:6px;padding:6px 8px;border:1px solid #e5e7eb;color:#111;cursor:pointer;font-size:13px}
+
+/* signature */
+.agree-block{display:flex;gap:12px;align-items:flex-start;padding:12px 0}
+.signature-pad{border:1px solid #e6e6e6;border-radius:8px;background:#fff;padding:8px}
+.sig-canvas{background:#fff;border-radius:6px;width:100%;height:160px;display:block;touch-action:none}
+
+/* buttons + messages */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{background:var(--brand);color:#fff;border:0;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700}
+.btn.secondary{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+.msg{margin-top:12px;padding:10px;border-radius:8px;display:none}
+.msg.success{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}
+.msg.error{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+
+/* staff boxes on right */
+.staff-box{background:linear-gradient(180deg,#fff,#fffaf6);padding:12px;border-radius:8px;border:1px solid rgba(237,118,36,0.06)}
+
+/* modal preview */
+.modal{position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:9999}
+.modal .box{width:94%;max-width:980px;background:#fff;padding:18px;border-radius:8px;overflow:auto;max-height:90vh}
+.close-x{float:right;background:#f3f4f6;border-radius:6px;padding:6px 8px;border:1px solid #eee;cursor:pointer}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* bottom notice and footer */
+.notice-board{margin-top:22px;padding:14px;border-radius:8px;background:#fff7f0;border:1px solid rgba(237,118,36,0.06);color:#333}
+.footer{margin-top:18px;padding:14px 6px;border-top:1px solid #eee;color:#666;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap}
+.footer .left, .footer .right{min-width:200px}
+</style>
+</head>
+<body>
+<div class="page" id="pageRoot">
+
+  <div class="header">
+    <div class="logo">
+      <img src="/logo.png" alt="Pet Center logo" id="brandLogo">
+    </div>
+
+    <div class="header-right">
+      <div><strong>Pet Center</strong></div>
+      <div>1700 Pet Street, New York, NY</div>
+      <div>Phone: +1 (555) 555-5555</div>
+      <div>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6b5b3b6b6a9b4b286b6a3b2a5a3a8b2a3b4a5a9e8a5a9ab">[email&#160;protected]</a></div>
+      <div class="idline">ID #: <input id="staffId" name="staff_id" style="min-width:120px;padding:6px;border:1px solid #eee;border-radius:6px"></div>
+    </div>
+  </div>
+
+  <div class="title">Adoption Application Form</div>
+  <div class="small note">This form is used across all adoptable pets. Upload front & back of Government ID (required).</div>
+
+  <div class="form-grid" style="margin-top:14px;">
+    <!-- LEFT: form -->
+    <div class="left-col">
+      <form id="adoptionForm" novalidate>
+
+        <!-- APPLICANT INFO -->
+        <section class="section">
+          <h3>APPLICANT INFORMATION</h3>
+          <div class="row">
+            <div class="col" style="flex:1.6">
+              <label class="label">Name</label>
+              <input class="input" name="name" id="name" required>
+            </div>
+            <div style="min-width:220px">
+              <label class="label">(optional) Reference Date</label>
+              <input class="input" type="date" id="top_date" name="top_date">
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div class="col"><label class="label">Address</label><input class="input" name="address" id="address" required></div>
+            <div style="min-width:120px"><label class="label">Apt / Unit #</label><input class="input" name="apt"></div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div class="col"><label class="label">City</label><input class="input" name="city" required></div>
+            <div style="min-width:120px"><label class="label">State</label><input class="input" name="state" required></div>
+            <div style="min-width:120px"><label class="label">Zip</label><input class="input" name="zip" required></div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div class="col"><label class="label">Phone number</label><input class="input" id="phone" name="phone" required></div>
+            <div class="col"><label class="label">Email</label><input class="input" id="user_email" name="user_email" type="email" required></div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="label">Additional information (anything we should know)</label>
+            <textarea class="input" name="additional_info" id="additional_info" placeholder="Explain household details, preferences, or anything not captured above..." required></textarea>
+          </div>
+
+          <div style="margin-top:10px" class="row">
+            <div class="col"><label class="label">ID / Driver's license #</label><input class="input" name="id_number" required></div>
+            <div class="col"><label class="label">Spouse / Partner name</label><input class="input" name="spouse"></div>
+          </div>
+
+          <div style="margin-top:8px">
+            <label class="label">Employment status</label>
+            <div class="check-grid">
+              <label><input type="radio" name="employment_status" value="full_time" required> Employed full-time</label>
+              <label><input type="radio" name="employment_status" value="part_time"> Employed part-time</label>
+              <label><input type="radio" name="employment_status" value="unemployed"> Unemployed</label>
+              <label><input type="radio" name="employment_status" value="student"> Student</label>
+              <label><input type="radio" name="employment_status" value="retired"> Retired</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- LIVING ARRANGEMENT -->
+        <section class="section">
+          <h3>LIVING ARRANGEMENT</h3>
+          <div class="row">
+            <div class="col"><label class="label">Do you: Rent / Own / Live at parents</label><input class="input" name="residence_type" required></div>
+            <div class="col"><label class="label">If renting - landlord allows pets?</label><div><label><input type="radio" name="landlord_allows" value="yes" required> Yes</label> <label><input type="radio" name="landlord_allows" value="no"> No</label></div></div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div class="col"><label class="label">Landlord name & phone</label><input class="input" name="landlord_contact" required></div>
+            <div class="col"><label class="label">Type of home</label><input class="input" name="home_type" required></div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="label">Length of time at current address</label>
+            <input class="input" name="time_at_address" required>
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="label">Who lives with you? (list Name — Age)</label>
+            <textarea class="input" name="household_list" required placeholder="One per line: Name — Age"></textarea>
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="label">If you owned animals in the past 10 years and no longer have them, what happened?</label>
+            <input class="input" name="past_animals" required>
+          </div>
+        </section>
+
+        <!-- CURRENT PETS & VET -->
+        <section class="section">
+          <h3>CURRENT PETS, PET OWNERSHIP, AND VET CARE</h3>
+          <div style="margin-top:8px">
+            <label class="label">Can you afford to care for a pet?</label>
+            <div><label><input type="radio" name="can_afford" value="yes" required> Yes</label> <label><input type="radio" name="can_afford" value="no"> No</label></div>
+          </div>
+
+          <div class="row" style="margin-top:8px">
+            <div class="col"><label class="label">Do you have a veterinarian?</label><div><label><input type="radio" name="have_vet" value="yes" required> Yes</label> <label><input type="radio" name="have_vet" value="no"> No</label></div></div>
+            <div class="col"><label class="label">Veterinarian's name</label><input class="input" name="vet_name"></div>
+          </div>
+
+          <div class="row" style="margin-top:8px">
+            <div class="col"><label class="label">Veterinarian Address</label><input class="input" name="vet_address"></div>
+            <div class="col"><label class="label">Veterinarian Phone</label><input class="input" name="vet_phone"></div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="label">Would you allow us to speak with your vet for health info?</label>
+            <div><label><input type="radio" name="allow_contact_vet" value="yes" required> Yes</label> <label><input type="radio" name="allow_contact_vet" value="no"> No</label></div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="label">Current pets (Name / Breed / Age / Spayed?)</label>
+            <table class="pets-table"><thead><tr><th>Pet Name</th><th>Breed/Species</th><th>Age</th><th>Spayed/Neutered</th></tr></thead>
+              <tbody>
+                <tr><td><input class="input" name="pet1_name"></td><td><input class="input" name="pet1_breed"></td><td><input class="input" name="pet1_age"></td><td><input class="input" name="pet1_spay"></td></tr>
+                <tr><td><input class="input" name="pet2_name"></td><td><input class="input" name="pet2_breed"></td><td><input class="input" name="pet2_age"></td><td><input class="input" name="pet2_spay"></td></tr>
+                <tr><td><input class="input" name="pet3_name"></td><td><input class="input" name="pet3_breed"></td><td><input class="input" name="pet3_age"></td><td><input class="input" name="pet3_spay"></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- PET CARE -->
+        <section class="section">
+          <h3>PET CARE</h3>
+          <div style="margin-top:8px">
+            <label class="label">Where do you keep your pet when not at home?</label>
+            <input class="input" name="where_keep" required>
+          </div>
+
+          <div style="margin-top:8px">
+            <label class="label">When inside, how will you keep your pet?</label>
+            <div class="check-grid">
+              <label><input type="radio" name="inside_plan" value="free_inside" required> Free inside the house</label>
+              <label><input type="radio" name="inside_plan" value="confined"> Confined to crate</label>
+              <label><input type="radio" name="inside_plan" value="other"> Other</label>
+            </div>
+          </div>
+
+          <div style="margin-top:8px">
+            <label class="label">When outside, how will you keep your pet?</label>
+            <div class="check-grid">
+              <label><input type="radio" name="outside_plan" value="fenced" required> Fenced yard</label>
+              <label><input type="radio" name="outside_plan" value="leash"> On a leash</label>
+              <label><input type="radio" name="outside_plan" value="garage"> Garage</label>
+              <label><input type="radio" name="outside_plan" value="other"> Other</label>
+            </div>
+          </div>
+
+          <div style="margin-top:8px">
+            <label class="label">How will you introduce your new pet to existing pets?</label>
+            <input class="input" name="introduce_existing" required>
+          </div>
+
+          <div style="margin-top:8px">
+            <label class="label">How will you handle undesirable behaviour?</label>
+            <input class="input" name="handle_undesirable" required>
+          </div>
+        </section>
+
+        <!-- ADOPTION INFO -->
+        <section class="section">
+          <h3>ADOPTION INFORMATION</h3>
+          <div class="row">
+            <div class="col"><label class="label">I want to adopt a (Cat/Dog/Other)</label><input class="input" name="want_adopt" required></div>
+            <div class="col"><label class="label">Sex preference</label><input class="input" name="sex_pref"></div>
+          </div>
+
+          <div style="margin-top:8px">
+            <label class="label">Why adopt? (check all that apply)</label>
+            <div class="check-grid">
+              <label><input type="checkbox" name="reason[]" value="companionship"> Companionship</label>
+              <label><input type="checkbox" name="reason[]" value="children"> Children responsibility</label>
+              <label><input type="checkbox" name="reason[]" value="love"> Love animals / help a pet</label>
+              <label><input type="checkbox" name="reason[]" value="breed"> Want to breed</label>
+              <label><input type="checkbox" name="reason[]" value="control"> Mouse control</label>
+              <label><input type="checkbox" name="reason[]" value="gift"> Gift for someone</label>
+              <label><input type="checkbox" name="reason[]" value="companion"> Companion for another pet</label>
+              <label><input type="checkbox" name="reason[]" value="other"> Other</label>
+            </div>
+          </div>
+
+          <div style="margin-top:8px"><label class="label">Primary caregiver</label><input class="input" name="primary_caregiver" required></div>
+        </section>
+
+        <!-- I UNDERSTAND & AGREE -->
+        <section class="section">
+          <h3>I UNDERSTAND &amp; AGREE</h3>
+          <div style="font-size:13px;line-height:1.5">
+            <ol>
+              <li>The above statements are true to the best of my knowledge.</li>
+              <li>I will provide food, water, and shelter at all times.</li>
+              <li>Pet Center cannot guarantee temperament/behavior.</li>
+              <li>Leash/containment rules may apply by local law.</li>
+              <li>I will follow up with my vet within 10 days.</li>
+            </ol>
+          </div>
+
+          <div style="margin-top:12px" class="agree-block">
+            <div style="flex:1">
+              <label class="label">Applicant signature (draw below)</label>
+              <div class="signature-pad">
+                <canvas id="sigCanvas" class="sig-canvas" aria-label="Signature pad"></canvas>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button type="button" id="clearSig" class="small-btn">Clear</button>
+                  <button type="button" id="saveSig" class="small-btn">Save Signature</button>
+                  <div id="sigSavedNote" class="small note" style="margin-left:8px"></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="width:240px">
+              <label class="label">Signature preview</label>
+              <div id="sigPreview" style="border:1px solid #eee;border-radius:6px;padding:8px;background:#fff;min-height:100px"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOW DID YOU HEAR -->
+        <section class="section">
+          <h3>HOW DID YOU HEAR ABOUT US?</h3>
+          <div class="check-grid">
+            <label><input type="checkbox" name="hear[]" value="facebook"> Facebook</label>
+            <label><input type="checkbox" name="hear[]" value="website"> Website</label>
+            <label><input type="checkbox" name="hear[]" value="petfinder"> Petfinder</label>
+            <label><input type="checkbox" name="hear[]" value="volunteer"> Volunteer</label>
+            <label><input type="checkbox" name="hear[]" value="friend"> Family / Friend</label>
+            <label><input type="checkbox" name="hear[]" value="other"> Other</label>
+          </div>
+        </section>
+
+        <!-- UPLOADS -->
+        <section class="section" id="uploadsSection">
+          <h3>UPLOADS (required)</h3>
+
+          <div style="margin-top:10px">
+            <label class="label">Government ID (front & back) — required</label>
+            <div id="drop_id" class="file-drop" tabindex="0">Click or drag files here (max 5)</div>
+            <div id="list_id" class="uploaded-list"></div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="label">Proof of Address — required</label>
+            <div id="drop_address" class="file-drop" tabindex="0">Click or drag files here (max 5)</div>
+            <div id="list_address" class="uploaded-list"></div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="label">Proof of Funding (if required)</label>
+            <div id="drop_vet" class="file-drop" tabindex="0">Click or drag files here (max 5)</div>
+            <div id="list_vet" class="uploaded-list"></div>
+          </div>
+        </section>
+
+        <!-- SUBMISSION DATE -->
+        <section class="section" id="dateSection">
+          <h3>DATE SUBMITTING</h3>
+          <div class="row">
+            <div class="col"><label class="label">Submission date *</label><input id="submission_date" name="submission_date" type="date" required></div>
+          </div>
+        </section>
+
+        <!-- final agree + submit -->
+        <section class="section" id="agreeSection">
+          <div style="display:flex;gap:12px;align-items:center">
+            <input id="finalAgree" type="checkbox" />
+            <label for="finalAgree" class="label">I confirm the information above is true and I agree to Pet Center's terms.</label>
+          </div>
+
+          <div class="note" style="margin-top:10px">Please confirm your information carefully — you can only submit this application once.</div>
+
+          <div class="actions">
+            <button type="button" id="submitBtn" class="btn"><span id="btnText">Submit Application</span></button>
+            <button type="button" id="previewBtn" class="btn secondary">Preview Summary</button>
+          </div>
+
+          <div id="formMessage" class="msg" role="status" aria-live="polite"></div>
+        </section>
+
+      </form>
+    </div>
+
+    <!-- RIGHT: staff area -->
+    <div class="right-col" id="staffCol">
+      <div class="staff-box">
+        <h3 style="margin-top:0">MANAGEMENT APPROVAL</h3>
+        <div style="margin-top:6px"><label class="label">Approved by:</label><input class="input" name="staff_approved_by"></div>
+        <div style="margin-top:8px"><label class="label">Comments:</label><textarea class="input" name="staff_comments"></textarea></div>
+        <div style="margin-top:8px"><label class="label">Denied by:</label><input class="input" name="staff_denied_by"></div>
+        <div style="margin-top:8px"><label class="label">Reason:</label><textarea class="input" name="staff_reason"></textarea></div>
+      </div>
+
+      <div style="height:18px"></div>
+
+      <div class="staff-box" style="margin-top:12px">
+        <h3 style="margin-top:0">Quick Notes</h3>
+        <div class="small note">Staff use only: application ID, notes and approval tracking.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTICE BOARD -->
+  <div class="notice-board" id="pageNotice">
+    <strong>Notice:</strong> Pet Center reserves every right to refuse an adoption based on the adoptee answers. Please keep in mind that every decision we make is in the best interest and safety of our adoptable pets and the families we place them with.
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" id="pageFooter">
+    <div class="left">© Pet Center — 1700 Pet Street, New York, NY — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="32414742425d40467242574651575c465740515d1c515d5f">[email&#160;protected]</a></div>
+    <div class="right">Phone: +1 (555) 555-5555 · Terms & Privacy</div>
+  </div>
+
+</div>
+
+<!-- modal -->
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="box">
+    <button id="closeModal" class="close-x">Close</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script>
+/* utilities */
+function $(id){return document.getElementById(id)}
+function escapeHtml(s){return String(s||'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+/* signature pad */
+const canvas = $('sigCanvas');
+const ctx = canvas.getContext('2d');
+function fitCanvas(){ const rect = canvas.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1; canvas.width = Math.round(rect.width * dpr); canvas.height = Math.round(rect.height * dpr); ctx.scale(dpr, dpr); ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.strokeStyle = '#111'; }
+fitCanvas(); window.addEventListener('resize', ()=>{ ctx.setTransform(1,0,0,1,0,0); fitCanvas(); });
+
+let drawing=false; let last={x:0,y:0};
+function getPos(e){ const rect = canvas.getBoundingClientRect(); let clientX, clientY; if(e.touches && e.touches[0]){ clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; } else { clientX = e.clientX; clientY = e.clientY; } return { x: clientX - rect.left, y: clientY - rect.top }; }
+
+canvas.addEventListener('pointerdown', (e)=>{ e.preventDefault(); canvas.setPointerCapture && canvas.setPointerCapture(e.pointerId); drawing=true; last = getPos(e); });
+canvas.addEventListener('pointermove', (e)=>{ if(!drawing) return; e.preventDefault(); const p = getPos(e); ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last = p; });
+canvas.addEventListener('pointerup', (e)=>{ drawing=false; try{ canvas.releasePointerCapture && canvas.releasePointerCapture(e.pointerId) }catch(_){} });
+canvas.addEventListener('pointercancel', ()=> drawing=false);
+
+$('clearSig').addEventListener('click', ()=>{ ctx.clearRect(0,0,canvas.width,canvas.height); $('sigPreview').innerHTML=''; $('sigSavedNote').textContent=''; });
+$('saveSig').addEventListener('click', ()=>{ const dataUrl = canvas.toDataURL('image/png'); $('sigPreview').innerHTML = `<img src="${dataUrl}" style="max-width:100%;height:auto;border-radius:4px">`; $('sigSavedNote').textContent = 'Signature saved'; });
+
+/* file uploads */
+const MAX_FILES = 5; const MAX_BYTES = 5 * 1024 * 1024;
+const ALLOWED = ['image/jpeg','image/jpg','image/png','application/pdf'];
+const fields = {
+  file_id: { drop: $('drop_id'), list: $('list_id'), arr: [] },
+  file_address: { drop: $('drop_address'), list: $('list_address'), arr: [] },
+  file_vet: { drop: $('drop_vet'), list: $('list_vet'), arr: [] }
+};
+
+Object.keys(fields).forEach(k=>{
+  const fld = fields[k];
+  const inp = document.createElement('input'); inp.type='file'; inp.accept='.jpg,.jpeg,.png,.pdf'; inp.multiple=true; inp.style.display='none'; document.body.appendChild(inp); fld.input = inp;
+  fld.drop.addEventListener('click', ()=> inp.click());
+  fld.drop.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); inp.click(); }});
+  ['dragenter','dragover'].forEach(ev=> fld.drop.addEventListener(ev, e=>{ e.preventDefault(); fld.drop.classList.add('dragover'); }));
+  ['dragleave','drop','dragend'].forEach(ev=> fld.drop.addEventListener(ev, e=>{ e.preventDefault(); fld.drop.classList.remove('dragover'); }));
+  fld.drop.addEventListener('drop', e=>{ const files = e.dataTransfer && e.dataTransfer.files ? Array.from(e.dataTransfer.files) : []; handleFiles(k, files); });
+  inp.addEventListener('change', e=>{ const files = e.target.files ? Array.from(e.target.files) : []; handleFiles(k, files); inp.value=''; });
+});
+
+/* ── Pre-upload on file selection ─────────────────────────────────────────────
+   Files are uploaded to the server the moment they are selected/dropped,
+   while the user continues filling the form. By the time they hit Submit,
+   files are already on the server — submit is near-instant.
+   Files are stored at full original quality (no compression).
+   Each uploaded file gets a temp_token back from upload-temp.php.           */
+
+async function preUploadFile(key, item) {
+  item.uploading = true;
+  item.uploaded  = false;
+  item.token     = null;
+  renderField(key);
+  try {
+    const fd = new FormData();
+    fd.append('file', item.file, item.name);
+    fd.append('field', key);
+    const res  = await fetch('/upload-temp.php', { method: 'POST', body: fd });
+    const json = await res.json();
+    if (json && json.token) {
+      item.token    = json.token;
+      item.uploaded = true;
+    } else {
+      item.uploadError = json.message || 'Upload failed';
+    }
+  } catch(e) {
+    item.uploadError = 'Network error during upload';
+    console.error('Pre-upload error:', e);
+  }
+  item.uploading = false;
+  renderField(key);
+}
+
+async function handleFiles(key, files){
+  const fld = fields[key];
+  for(const f of files){
+    if(fld.arr.length >= MAX_FILES){ alert('Max ' + MAX_FILES + ' files allowed.'); break; }
+    if(f.size > MAX_BYTES){ alert('File "'+f.name+'" too large. Max 5MB.'); continue; }
+    if(!ALLOWED.includes(f.type)){ alert('File "'+f.name+'" type not allowed.'); continue; }
+    const url = URL.createObjectURL(f);
+    const item = { file: f, url, name: f.name, size: f.size, type: f.type, uploading: false, uploaded: false, token: null };
+    fld.arr.push(item);
+    renderField(key);
+    // Start background upload immediately — don't await, let it run while user fills form
+    preUploadFile(key, item);
+  }
+}
+
+function renderField(key){
+  const fld = fields[key]; fld.list.innerHTML = '';
+  fld.arr.forEach((it, idx)=>{
+    const div = document.createElement('div'); div.className='uploaded-item';
+    const thumb = document.createElement('img'); if(it.type.startsWith('image/')) thumb.src = it.url; else thumb.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="%239ca3af" font-size="12">PDF</text></svg>';
+    const meta = document.createElement('div'); meta.style.flex='1'; meta.innerHTML = `<strong>${escapeHtml(it.name)}</strong><div class="small">${(it.size/1024).toFixed(0)} KB${it.uploaded ? ' ✓ uploaded' : (it.uploading ? ' — uploading…' : '')}</div>`;
+    const btns = document.createElement('div'); btns.style.display='flex'; btns.style.flexDirection='column'; btns.style.gap='8px';
+    const preview = document.createElement('button'); preview.type='button'; preview.className='small-btn'; preview.textContent='Preview'; preview.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); openPreview(it); });
+    const rem = document.createElement('button'); rem.type='button'; rem.className='small-btn'; rem.textContent='Remove'; rem.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); URL.revokeObjectURL(it.url); fld.arr.splice(idx,1); renderField(key); });
+    btns.appendChild(preview); btns.appendChild(rem);
+    div.appendChild(thumb); div.appendChild(meta); div.appendChild(btns); fld.list.appendChild(div);
+  });
+}
+
+/* modal preview */
+const modal = $('modal'), modalContent = $('modalContent'), closeModal = $('closeModal');
+function openPreview(item){ modalContent.innerHTML = ''; if(item.type.startsWith('image/')){ const img = document.createElement('img'); img.src = item.url; img.style.maxWidth='100%'; modalContent.appendChild(img); } else { const iframe = document.createElement('iframe'); iframe.src = item.url; iframe.style.width='100%'; iframe.style.height='70vh'; modalContent.appendChild(iframe); } modal.style.display='flex'; }
+closeModal.addEventListener('click', ()=> { modal.style.display='none'; modalContent.innerHTML=''; });
+
+/* preview summary — shows only filled fields with proper labels */
+$('previewBtn').addEventListener('click', ()=>{
+  modalContent.innerHTML = '';
+  const form = document.getElementById('adoptionForm');
+  const data = new FormData(form);
+
+  const LABELS = {
+    name:'Full Name', top_date:'Reference Date', address:'Address', apt:'Apt / Unit #',
+    city:'City', state:'State', zip:'Zip', phone:'Phone', user_email:'Email',
+    additional_info:'Additional Information', id_number:'ID / License #', spouse:'Spouse / Partner',
+    employment_status:'Employment Status', residence_type:'Residence Type',
+    landlord_allows:'Landlord Allows Pets', landlord_contact:'Landlord Name & Phone',
+    home_type:'Type of Home', time_at_address:'Time at Address',
+    household_list:'Household Members', past_animals:'Past Animals',
+    can_afford:'Can Afford Pet Care', have_vet:'Has Veterinarian', vet_name:'Vet Name',
+    vet_address:'Vet Address', vet_phone:'Vet Phone', allow_contact_vet:'Allow Vet Contact',
+    pet1_name:'Pet 1 Name', pet1_breed:'Pet 1 Breed', pet1_age:'Pet 1 Age', pet1_spay:'Pet 1 Spayed',
+    pet2_name:'Pet 2 Name', pet2_breed:'Pet 2 Breed', pet2_age:'Pet 2 Age', pet2_spay:'Pet 2 Spayed',
+    pet3_name:'Pet 3 Name', pet3_breed:'Pet 3 Breed', pet3_age:'Pet 3 Age', pet3_spay:'Pet 3 Spayed',
+    where_keep:'Pet Storage When Away', inside_plan:'Inside Arrangement', outside_plan:'Outside Arrangement',
+    introduce_existing:'Introduce to Existing Pets', handle_undesirable:'Handle Bad Behaviour',
+    want_adopt:'Want to Adopt', sex_pref:'Sex Preference', primary_caregiver:'Primary Caregiver',
+    submission_date:'Submission Date'
+  };
+  const CHECKBOX_LABELS = {
+    'reason[]': 'Reason for Adopting',
+    'hear[]':   'How Did You Hear About Us'
+  };
+  const CHIP_VALUES = {
+    companionship:'Companionship', children:'Children Responsibility', love:'Love Animals',
+    breed:'Want to Breed', control:'Mouse Control', gift:'Gift for Someone',
+    companion:'Companion for Another Pet', other:'Other',
+    facebook:'Facebook', website:'Website', petfinder:'Petfinder',
+    volunteer:'Volunteer', friend:'Family / Friend'
+  };
+
+  // Collect checkbox arrays separately
+  const arrayMap = {};
+  for (const [k, v] of data.entries()) {
+    if (k.endsWith('[]')) { (arrayMap[k] = arrayMap[k] || []).push(v); }
+  }
+
+  const summary = document.createElement('div');
+  summary.innerHTML = `
+    <h2 style="color:#ED7624;margin:0 0 4px">Application Preview</h2>
+    <p style="color:#888;font-size:13px;margin:0 0 18px">Review your filled-in information below.</p>`;
+
+  // Scalar fields
+  for (const [k, v] of data.entries()) {
+    if (k.endsWith('[]') || !v || !(v.trim ? v.trim() : v)) continue;
+    if (!LABELS[k]) continue;
+    summary.innerHTML += `
+      <div style="margin:8px 0;padding:10px 12px;background:#f9f9f9;border-left:3px solid #ED7624;border-radius:4px">
+        <div style="font-size:11px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.5px">${LABELS[k]}</div>
+        <div style="margin-top:3px;color:#111;font-size:14px">${escapeHtml(v).replace(/\n/g,'<br>')}</div>
+      </div>`;
+  }
+
+  // Checkbox groups as chips
+  for (const [k, label] of Object.entries(CHECKBOX_LABELS)) {
+    const vals = arrayMap[k];
+    if (!vals || !vals.length) continue;
+    const chips = vals.map(v => `<span style="display:inline-block;background:#ED7624;color:#fff;padding:3px 10px;border-radius:20px;font-size:12px;margin:3px 4px 3px 0">${escapeHtml(CHIP_VALUES[v] || v)}</span>`).join('');
+    summary.innerHTML += `
+      <div style="margin:8px 0;padding:10px 12px;background:#f9f9f9;border-left:3px solid #ED7624;border-radius:4px">
+        <div style="font-size:11px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.5px">${label}</div>
+        <div style="margin-top:6px">${chips}</div>
+      </div>`;
+  }
+
+  // Uploaded files
+  const FILE_LABELS = { file_id:'Government ID', file_address:'Proof of Address', file_vet:'Proof of Funding' };
+  ['file_id','file_address','file_vet'].forEach(k => {
+    const fld = fields[k];
+    if (!fld.arr.length) return;
+    const items = fld.arr.map(f => `<li style="font-size:13px;padding:2px 0">${escapeHtml(f.name)}</li>`).join('');
+    summary.innerHTML += `
+      <div style="margin:8px 0;padding:10px 12px;background:#f9f9f9;border-left:3px solid #ED7624;border-radius:4px">
+        <div style="font-size:11px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.5px">${FILE_LABELS[k]}</div>
+        <ul style="margin:6px 0 0;padding-left:18px">${items}</ul>
+      </div>`;
+  });
+
+  const dl = document.createElement('button');
+  dl.type = 'button';
+  dl.className = 'btn';
+  dl.textContent = 'Download Preview PDF';
+  dl.addEventListener('click', () => html2pdf().from(summary).set({ margin: 0.4, filename: `preview-${Date.now()}.pdf` }).save());
+
+  modalContent.appendChild(summary);
+  const controls = document.createElement('div');
+  controls.style.marginTop = '14px';
+  controls.appendChild(dl);
+  modalContent.appendChild(controls);
+  modal.style.display = 'flex';
+});
+
+/* Build a clean PDF data node from the filled form — no screenshot, no DOM hiding */
+function buildAdoptionPdfNode(label) {
+  const form = document.getElementById('adoptionForm');
+  const g = name => { const el = form.querySelector('[name="'+name+'"]'); return el ? el.value.trim() : ''; };
+  const checks = name => Array.from(form.querySelectorAll('[name="'+name+'"]')).filter(el=>el.checked).map(el=>el.value).join(', ');
+  const row = (lbl, val) => val ? '<tr><td style="padding:5px 0;color:#6b7280;width:180px;font-size:13px">'+escapeHtml(lbl)+'</td><td style="padding:5px 0;font-size:13px">'+escapeHtml(val)+'</td></tr>' : '';
+  const sigDataUrl = canvas.toDataURL('image/png');
+  const blank = document.createElement('canvas'); blank.width=canvas.width; blank.height=canvas.height;
+  const hasSig = sigDataUrl !== blank.toDataURL();
+
+  const node = document.createElement('div');
+  node.style.cssText = 'padding:24px;font-family:Inter,Arial,sans-serif;color:#111;max-width:720px';
+  node.innerHTML =
+    '<div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">'+
+      '<img src="logo.png" alt="Pet Center" style="height:48px" onerror="this.style.display=\'none\'">'+
+      '<div><h2 style="margin:0;color:#ED7624;font-size:20px">Pet Center — Adoption Application</h2>'+
+      '<p style="margin:3px 0 0;color:#6b7280;font-size:13px">'+escapeHtml(label)+' &middot; '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})+'</p></div>'+
+    '</div>'+
+    '<hr style="margin:0 0 16px;border:none;border-top:1px solid #eee">'+
+    '<h3 style="color:#ED7624;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Personal Information</h3>'+
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:14px">'+
+      row('Full Name',g('name'))+row('Address',g('address')+( g('apt')?' Apt '+g('apt'):'')+', '+g('city')+', '+g('state')+' '+g('zip'))+
+      row('Phone',g('phone'))+row('Email',g('user_email'))+row('ID / License #',g('id_number'))+row('Spouse / Partner',g('spouse'))+
+      row('Additional Info',g('additional_info'))+
+    '</table>'+
+    '<h3 style="color:#ED7624;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Household &amp; Living</h3>'+
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:14px">'+
+      row('Employment',g('employment_status'))+row('Residence Type',g('residence_type'))+row('Landlord Allows Pets',g('landlord_allows'))+
+      row('Landlord Contact',g('landlord_contact'))+row('Home Type',g('home_type'))+row('Time at Address',g('time_at_address'))+
+      row('Household Members',g('household_list'))+row('Past Animals',g('past_animals'))+
+    '</table>'+
+    '<h3 style="color:#ED7624;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Veterinary &amp; Pet History</h3>'+
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:14px">'+
+      row('Can Afford Pet Care',g('can_afford'))+row('Has Veterinarian',g('have_vet'))+row('Vet Name',g('vet_name'))+
+      row('Vet Address',g('vet_address'))+row('Vet Phone',g('vet_phone'))+row('Allow Vet Contact',g('allow_contact_vet'))+
+    '</table>'+
+    '<h3 style="color:#ED7624;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Current Pets</h3>'+
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:14px">'+
+      (g('pet1_name')?row('Pet 1',g('pet1_name')+' | '+g('pet1_breed')+' | '+g('pet1_age')+' | Spayed: '+g('pet1_spay')):'')+
+      (g('pet2_name')?row('Pet 2',g('pet2_name')+' | '+g('pet2_breed')+' | '+g('pet2_age')+' | Spayed: '+g('pet2_spay')):'')+
+      (g('pet3_name')?row('Pet 3',g('pet3_name')+' | '+g('pet3_breed')+' | '+g('pet3_age')+' | Spayed: '+g('pet3_spay')):'')+
+    '</table>'+
+    '<h3 style="color:#ED7624;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Pet Care Plans</h3>'+
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:14px">'+
+      row('Where kept when away',g('where_keep'))+row('Inside arrangement',g('inside_plan'))+row('Outside arrangement',g('outside_plan'))+
+      row('Introduce to existing pets',g('introduce_existing'))+row('Handle bad behaviour',g('handle_undesirable'))+
+    '</table>'+
+    '<h3 style="color:#ED7624;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Adoption Preferences</h3>'+
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:14px">'+
+      row('Want to Adopt',g('want_adopt'))+row('Sex Preference',g('sex_pref'))+row('Reason(s)',checks('reason[]'))+
+      row('Primary Caregiver',g('primary_caregiver'))+row('How Heard About Us',checks('hear[]'))+
+    '</table>'+
+    '<h3 style="color:#ED7624;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Submission</h3>'+
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:14px">'+
+      row('Submission Date',g('submission_date'))+
+    '</table>'+
+    (hasSig ? '<h3 style="color:#ED7624;margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Applicant Signature</h3><img src="'+sigDataUrl+'" style="max-width:260px;height:auto;border:1px solid #eee;border-radius:6px;padding:6px;display:block;margin-bottom:16px">' : '')+
+    '<hr style="margin:0 0 10px;border:none;border-top:1px solid #eee">'+
+    '<p style="font-size:12px;color:#9ca3af;margin:0">Submitted: '+new Date().toLocaleString()+' &middot; Pet Center &middot; adopt@petcenterco.com</p>';
+  return node;
+}
+
+/* submit handler — uses html2pdf data-node (no screenshot, no DOM hiding) */
+let inProgress = false;
+$('submitBtn').addEventListener('click', async function() {
+  if (inProgress) return;
+  const form = document.getElementById('adoptionForm');
+
+  // Validation
+  const requiredFields = ['name','address','city','state','zip','phone','user_email','id_number','additional_info'];
+  for (const key of requiredFields) {
+    const el = form.querySelector(`[name="${key}"]`);
+    if (el && !el.value.trim()) { showMsg(`Please complete: ${key}`, 'error'); el.focus(); return; }
+  }
+  if (!$('submission_date').value) { showMsg('Please select submission date','error'); $('submission_date').focus(); return; }
+  if (!$('finalAgree').checked) { showMsg('You must agree before submitting','error'); return; }
+  if (fields.file_id.arr.length < 2) { showMsg('Please upload front & back of Government ID','error'); return; }
+  if (fields.file_address.arr.length === 0) { showMsg('Please upload proof of address','error'); return; }
+
+  inProgress = true;
+  $('submitBtn').disabled = true;
+  $('btnText').textContent = 'Preparing…';
+
+  const fd = new FormData(form);
+
+  // Wait for any files still uploading in background
+  const allItems = Object.values(fields).flatMap(f => f.arr);
+  const stillUploading = allItems.filter(it => it.uploading);
+  if (stillUploading.length > 0) {
+    showMsg('Please wait — files are still uploading…', 'success');
+    await Promise.all(allItems.map(it => {
+      if (it.uploading) return new Promise(resolve => {
+        const check = setInterval(() => { if (!it.uploading) { clearInterval(check); resolve(); } }, 200);
+      });
+      return Promise.resolve();
+    }));
+  }
+
+  const failed = allItems.filter(it => it.uploadError);
+  if (failed.length > 0) {
+    showMsg('Some files failed to upload. Please remove and re-add them.', 'error');
+    $('submitBtn').disabled = false; $('btnText').textContent = 'Submit Application';
+    inProgress = false; return;
+  }
+
+  // Append file tokens or raw fallback
+  Object.keys(fields).forEach(k => {
+    fields[k].arr.forEach(it => {
+      if (it.token) { fd.append(k + '_token[]', it.token); }
+      else { fd.append(k + '[]', it.file, it.name); }
+    });
+  });
+
+  // Signature
+  const blank = document.createElement('canvas');
+  blank.width = canvas.width; blank.height = canvas.height;
+  const isBlank = canvas.toDataURL() === blank.toDataURL();
+  if (!isBlank) {
+    fd.append('signature', dataURLtoBlob(canvas.toDataURL('image/png')), 'signature.png');
+  }
+
+  // Build PDF from data node and attach to FormData
+  try {
+    showMsg('Preparing PDF…', 'success');
+    const pdfBlob = await html2pdf()
+      .set({
+        margin:      0.4,
+        filename:    'adoption-application.pdf',
+        image:       { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1.8, useCORS: true, logging: false },
+        jsPDF:       { unit: 'in', format: 'a4', orientation: 'portrait' }
+      })
+      .from(buildAdoptionPdfNode('Application Copy'))
+      .outputPdf('blob');
+    fd.append('screenshot_pdf', pdfBlob, 'adoption-application.pdf');
+  } catch (pdfErr) {
+    console.error('PDF build error:', pdfErr);
+    // Non-fatal — continue submission without PDF
+  }
+
+  $('btnText').textContent = 'Submitting…';
+
+  try {
+    const res = await fetch('/adoption-application.php', { method: 'POST', body: fd });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('Server error:', res.status, errText.substring(0, 400));
+      showMsg(`Server error (${res.status}). Please contact support.`, 'error');
+      $('submitBtn').disabled = false;
+      $('btnText').textContent = 'Submit Application';
+      inProgress = false; return;
+    }
+
+    const json = await res.json();
+    if (json && json.success) {
+      showMsg(json.message || 'Application submitted!', 'success');
+      $('btnText').textContent = 'Submitted ✓';
+      $('submitBtn').disabled = true;
+      // Auto-download a local PDF copy for the applicant
+      html2pdf()
+        .set({ margin:0.4, filename:'adoption-'+Date.now()+'.pdf', image:{type:'jpeg',quality:0.98}, html2canvas:{scale:1.8}, jsPDF:{unit:'in',format:'a4'} })
+        .from(buildAdoptionPdfNode('Your Copy'))
+        .save();
+    } else {
+      showMsg(json && json.message ? json.message : 'Submission failed. Please try again.', 'error');
+      $('submitBtn').disabled = false;
+      $('btnText').textContent = 'Submit Application';
+    }
+  } catch (err) {
+    console.error('Submit error:', err);
+    showMsg('Network error. Please check your connection and try again.', 'error');
+    $('submitBtn').disabled = false;
+    $('btnText').textContent = 'Submit Application';
+  } finally {
+    inProgress = false;
+  }
+});
+
+function showMsg(msg, type = 'error') {
+  const el = $('formMessage');
+  el.style.display = 'block';
+  el.textContent = msg;
+  el.className = 'msg ' + (type === 'success' ? 'success' : 'error');
+}
+
+function dataURLtoBlob(dataUrl) {
+  const [header, data] = dataUrl.split(',');
+  const mime = header.match(/:(.*?);/)[1];
+  const binary = atob(data);
+  const arr = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) arr[i] = binary.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+</script>
+</body>
+</html>

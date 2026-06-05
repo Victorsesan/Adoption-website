@@ -1,0 +1,19 @@
+{
+  "pet_id": "DOG-00001",
+  "category": "dogs",
+  "name": "Buddy",
+  "species": "",
+  "breed": "Golden Retriever",
+  "age_years": 3,
+  "size": "Large",
+  "description_short": "Friendly and energetic Golden Retriever who loves people and outdoor adventures.",
+  "description_full": "Buddy is a 3-year-old Golden Retriever full of energy and love. He has been fostered with children and other dogs. He&#39;s house-trained, knows basic commands, and would thrive in an active family.",
+  "adoption_fee": 250,
+  "health_info": "Vaccinated, microchipped, neutered",
+  "single_image_url": "/assets/images/pet-placeholder.jpg",
+  "bulk_images_url": "/adoptions/pets/dogs/DOG-00001/bulk_images/",
+  "bulk_images": [],
+  "status": "Available",
+  "created_at": "2026-05-28 04:09:25",
+  "updated_at": "2026-05-28 04:09:25"
+}

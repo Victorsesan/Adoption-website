@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="img/fav.png">
+  <meta charset="UTF-8">
+  <meta name="description" content="Adoptable birds at Pet Center. Parrots, cockatiels, canaries, and more.">
+  <title>Birds for Adoption — Pet Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/linearicons.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<header id="header">
+  <div class="container main-menu">
+    <div class="row align-items-center justify-content-between d-flex">
+      <div id="logo"><a href="index.html"><img src="img/logo.png" alt="Pet Center"></a></div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="https://docs.petcenterco.com/adoption-policy" target="_blank">About Us</a></li>
+          <li class="menu-has-children menu-active"><a href="#">Our Pets</a>
+            <ul>
+              <li><a href="dogs.html">Dogs</a></li>
+              <li><a href="cats.html">Cats</a></li>
+              <li><a href="birds.html">Birds</a></li>
+              <li><a href="reptiles.html">Reptiles</a></li>
+              <li><a href="small-mammals.html">Small Mammals</a></li>
+            </ul>
+          </li>
+          <li><a href="adoption-application.html">Apply to Adopt</a></li>
+          <li><a href="https://docs.petcenterco.com/contact-us" target="_blank">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="banner-area relative" id="home">
+  <div class="overlay overlay-bg"></div>
+  <div class="container">
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="about-content col-lg-12">
+        <h1 class="text-white">Birds for Adoption</h1>
+        <p class="text-white link-nav">
+          <a href="index.html">Home</a> <span class="lnr lnr-arrow-right"></span> <a href="birds.html">Birds</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pc-section" id="petCatalog" data-category="birds">
+  <div class="pc-container">
+    <div class="pc-filters">
+      <div class="pc-filter-group">
+        <label class="pc-filter-label">Breed / Species</label>
+        <select class="pc-filter-select" id="filterBreed"><option value="">All Species</option></select>
+      </div>
+      <div class="pc-filter-group">
+        <label class="pc-filter-label">Size</label>
+        <select class="pc-filter-select" id="filterSize">
+          <option value="">Any Size</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+      </div>
+      <div class="pc-filter-group">
+        <label class="pc-filter-label">Adoption Fee</label>
+        <select class="pc-filter-select" id="filterFee">
+          <option value="">Any Fee</option>
+          <option value="0-100">$0–$100</option>
+          <option value="100-500">$100–$500</option>
+          <option value="500-1000">$500–$1,000</option>
+          <option value="1000+">$1,000+</option>
+        </select>
+      </div>
+      <div class="pc-filter-group">
+        <label class="pc-filter-label">Sort By</label>
+        <select class="pc-filter-select" id="sortBy">
+          <option value="name">Name A–Z</option>
+          <option value="age">Youngest First</option>
+          <option value="fee_asc">Lowest Fee</option>
+          <option value="fee_desc">Highest Fee</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <div>
+        <h2 style="margin:0;font-size:1.6rem;">Adoptable Birds</h2>
+        <p style="margin:4px 0 0;font-size:13px;"><span id="petCount">—</span> birds available</p>
+      </div>
+      <a href="adoption-application.html" class="pc-btn pc-btn--orange">Apply to Adopt</a>
+    </div>
+
+    <div class="pc-pet-grid" id="petGrid">
+      <div class="pc-skeleton"></div><div class="pc-skeleton"></div>
+      <div class="pc-skeleton"></div><div class="pc-skeleton"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-area">
+  <div class="container">
+    <div class="row pt-120 pb-80">
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget">
+          <h6>Pet Center Adoption</h6>
+          <p>Every pet deserves a loving home. Browse our available pets and start your adoption journey today.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget">
+          <h6>Our Pets</h6>
+          <div class="row">
+            <ul class="col footer-nav">
+              <li><a href="dogs.html">Dogs</a></li>
+              <li><a href="cats.html">Cats</a></li>
+              <li><a href="birds.html">Birds</a></li>
+            </ul>
+            <ul class="col footer-nav">
+              <li><a href="reptiles.html">Reptiles</a></li>
+              <li><a href="small-mammals.html">Small Mammals</a></li>
+              <li><a href="adoption-application.html">Apply</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget">
+          <h6 class="mb-20">Contact Us</h6>
+          <ul class="list-contact">
+            <li class="flex-row d-flex">
+              <div class="icon"><span class="lnr lnr-envelope"></span></div>
+              <div class="detail"><h4>adopt@petcenterco.com</h4></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright-text">
+    <div class="container">
+      <div class="row footer-bottom d-flex justify-content-between">
+        <p class="col-lg-8 col-sm-6 footer-text m-0 text-white">Copyright &copy;<script>document.write(new Date().getFullYear());</script> Pet Center Adoption</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/easing.min.js"></script>
+<script src="js/hoverIntent.js"></script>
+<script src="js/superfish.min.js"></script>
+<script src="js/main.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pet-catalog.js"></script>
+</body>
+</html>

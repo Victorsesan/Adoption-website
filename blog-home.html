@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="img/fav.png">
+  <meta name="author" content="Pet Center">
+  <meta name="description" content="Pet Center Adoption Blog — tips, stories, and guides for pet adoption, care, and responsible ownership.">
+  <meta name="keywords" content="pet adoption, dog adoption, cat adoption, pet care tips, adoption guide">
+  <meta charset="UTF-8">
+  <title>Blog — Pet Center Adoption</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/linearicons.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/animate.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    /* Blog-specific styles */
+    .pc-blog-hero {
+      background: linear-gradient(120deg, #10214b 0%, #1a3070 60%, #2a4080 100%);
+      padding: 100px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pc-blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('img/header-bg.jpg') center/cover no-repeat;
+      opacity: 0.15;
+    }
+    .pc-blog-hero__inner { position: relative; z-index: 1; text-align: center; }
+    .pc-blog-hero__eyebrow {
+      display: inline-block;
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #d7bd88;
+      background: rgba(215,189,136,0.12);
+      border: 1px solid rgba(215,189,136,0.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .pc-blog-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    .pc-blog-hero p {
+      color: rgba(255,255,255,0.75);
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    /* Category pills */
+    .pc-blog-cats {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      justify-content: center; margin-top: 36px;
+    }
+    .pc-blog-cat-pill {
+      font-family: 'Sora', sans-serif;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.08);
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .pc-blog-cat-pill:hover, .pc-blog-cat-pill.active {
+      background: #ED7624; border-color: #ED7624; color: #fff; text-decoration: none;
+    }
+    /* Featured post */
+    .pc-blog-featured {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(16,33,75,0.10);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 48px;
+    }
+    @media(max-width:767px){ .pc-blog-featured { grid-template-columns: 1fr; } }
+    .pc-blog-featured__img {
+      background: linear-gradient(135deg,#10214b,#2a4080);
+      min-height: 320px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .pc-blog-featured__img img {
+      width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;
+    }
+    .pc-blog-featured__body { padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; }
+    .pc-blog-tag {
+      display: inline-block;
+      font-family: 'Sora', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: #ED7624; margin-bottom: 14px;
+    }
+    .pc-blog-featured__body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(24px, 2.5vw, 34px);
+      font-weight: 700; color: #10214b;
+      line-height: 1.2; margin-bottom: 14px;
+    }
+    .pc-blog-featured__body p {
+      font-family: 'Sora', sans-serif;
+      color: #5a5048; font-size: 15px;
+      line-height: 1.7; margin-bottom: 24px;
+    }
+    .pc-blog-meta {
+      font-family: 'Sora', sans-serif;
+      font-size: 12px; color: #9a8e82;
+      display: flex; gap: 16px; align-items: center; margin-top: auto;
+    }
+    /* Post grid */
+    .pc-blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px; margin-bottom: 48px;
+    }
+    .pc-blog-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(16,33,75,0.08);
+      transition: box-shadow .25s, transform .25s;
+      text-decoration: none;
+      display: flex; flex-direction: column;
+    }
+    .pc-blog-card:hover {
+      box-shadow: 0 8px 32px rgba(16,33,75,0.15);
+      transform: translateY(-3px);
+      text-decoration: none;
+    }
+    .pc-blog-card__img {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg,#10214b,#2a4080);
+      position: relative; overflow: hidden;
+    }
+    .pc-blog-card__img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .pc-blog-card__img-fallback {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pc-blog-card__body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .pc-blog-card__body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 700;
+      color: #10214b; margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    .pc-blog-card__body p {
+      font-family: 'Sora', sans-serif;
+      color: #5a5048; font-size: 13.5px;
+      line-height: 1.65; margin-bottom: 16px; flex: 1;
+    }
+    .pc-blog-card__footer {
+      font-family: 'Sora', sans-serif;
+      font-size: 12px; color: #9a8e82;
+      border-top: 1px solid #f0ebe4;
+      padding-top: 14px; margin-top: auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .pc-blog-card__readmore {
+      color: #ED7624; font-weight: 700;
+      font-size: 12px; letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    /* Sidebar */
+    .pc-sidebar-widget {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(16,33,75,0.07);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .pc-sidebar-widget h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 700;
+      color: #10214b; margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #d7bd88;
+    }
+    .pc-sidebar-link-list { list-style: none; margin: 0; padding: 0; }
+    .pc-sidebar-link-list li {
+      padding: 9px 0;
+      border-bottom: 1px solid #f0ebe4;
+      font-family: 'Sora', sans-serif;
+      font-size: 13.5px;
+    }
+    .pc-sidebar-link-list li:last-child { border-bottom: none; }
+    .pc-sidebar-link-list a { color: #10214b; text-decoration: none; transition: color .2s; }
+    .pc-sidebar-link-list a:hover { color: #ED7624; }
+    .pc-blog-adopt-cta {
+      background: linear-gradient(135deg, #10214b, #1a3070);
+      border-radius: 12px; padding: 28px;
+      text-align: center; color: #fff;
+    }
+    .pc-blog-adopt-cta h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 700; color: #d7bd88;
+      margin-bottom: 10px;
+    }
+    .pc-blog-adopt-cta p {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px; color: rgba(255,255,255,0.75);
+      margin-bottom: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container main-menu">
+    <div class="row align-items-center justify-content-between d-flex">
+      <div id="logo">
+        <a href="index.html"><img src="img/logo.png" alt="Pet Center" title="Pet Center Adoption"></a>
+      </div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="https://docs.petcenterco.com/adoption-policy" target="_blank">About Us</a></li>
+          <li class="menu-has-children"><a href="#">Our Pets</a>
+            <ul>
+              <li><a href="dogs.html">Dogs</a></li>
+              <li><a href="cats.html">Cats</a></li>
+              <li><a href="birds.html">Birds</a></li>
+              <li><a href="reptiles.html">Reptiles</a></li>
+              <li><a href="small-mammals.html">Small Mammals</a></li>
+            </ul>
+          </li>
+          <li><a href="adoption-application.html">Apply to Adopt</a></li>
+          <li class="menu-active menu-has-children"><a href="blog-home.html">Blog</a>
+            <ul>
+              <li><a href="blog-home.html">All Posts</a></li>
+              <li><a href="blog-single.html">Adoption Guides</a></li>
+            </ul>
+          </li>
+          <li><a href="https://docs.petcenterco.com/contact-us" target="_blank">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Blog Hero -->
+<section class="pc-blog-hero">
+  <div class="container">
+    <div class="pc-blog-hero__inner">
+      <div class="pc-blog-hero__eyebrow">Pet Center Blog</div>
+      <h1>Stories, Tips &amp; Adoption Guides</h1>
+      <p>Everything you need to know about adopting, caring for, and loving your new pet.</p>
+      <div class="pc-blog-cats">
+        <a href="blog-home.html" class="pc-blog-cat-pill active">All Posts</a>
+        <a href="#adoption-guides" class="pc-blog-cat-pill">Adoption Guides</a>
+        <a href="#pet-care" class="pc-blog-cat-pill">Pet Care</a>
+        <a href="#success-stories" class="pc-blog-cat-pill">Success Stories</a>
+        <a href="#training" class="pc-blog-cat-pill">Training</a>
+        <a href="#health" class="pc-blog-cat-pill">Health &amp; Wellness</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="pc-section" style="background:#f8f5f0;">
+  <div class="pc-container">
+    <div class="row">
+
+      <!-- Posts Column -->
+      <div class="col-lg-8">
+
+        <!-- Featured Post -->
+        <div class="pc-blog-featured">
+          <div class="pc-blog-featured__img">
+            <img src="img/dg1.jpg" alt="First-Time Dog Adoption Guide" onerror="this.style.display='none'">
+          </div>
+          <div class="pc-blog-featured__body">
+            <span class="pc-blog-tag">Featured &bull; Adoption Guides</span>
+            <h2>The Complete First-Time Adopter's Guide to Bringing a Dog Home</h2>
+            <p>Adopting your first dog is one of the most rewarding decisions you'll ever make — and one of the most important. We walk you through every step, from choosing the right breed to the first night at home.</p>
+            <a href="blog-single.html" class="pc-btn pc-btn--orange">Read Full Guide</a>
+            <div class="pc-blog-meta" style="margin-top:20px;">
+              <span>By Pet Center Team</span>
+              <span>&bull;</span>
+              <span>May 20, 2026</span>
+              <span>&bull;</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blog Grid -->
+        <h3 class="pc-section-title" style="font-size:24px;margin-bottom:28px;" id="adoption-guides">Recent Posts</h3>
+        <div class="pc-blog-grid">
+
+          <!-- Post 1 -->
+          <a href="blog-single.html" class="pc-blog-card">
+            <div class="pc-blog-card__img">
+              <div class="pc-blog-card__img-fallback" style="background:linear-gradient(135deg,#10214b,#2a4080);">
+                <img src="img/ct1.jpg" alt="Adopting a Cat" onerror="this.style.display='none'">
+              </div>
+            </div>
+            <div class="pc-blog-card__body">
+              <span class="pc-blog-tag">Pet Care</span>
+              <h3>5 Things No One Tells You Before Adopting a Cat</h3>
+              <p>Cats are wonderfully complex creatures. Here are five honest, often overlooked truths that will help you prepare for life with a feline companion — and fall even more in love with them.</p>
+              <div class="pc-blog-card__footer">
+                <span>May 22, 2026 &bull; 5 min read</span>
+                <span class="pc-blog-card__readmore">Read More &rarr;</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Post 2 -->
+          <a href="blog-single.html" class="pc-blog-card">
+            <div class="pc-blog-card__img" style="background:linear-gradient(135deg,#1a3070,#10214b);">
+              <div class="pc-blog-card__img-fallback" style="height:100%;display:flex;align-items:center;justify-content:center;">
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="rgba(215,189,136,0.5)" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+            </div>
+            <div class="pc-blog-card__body">
+              <span class="pc-blog-tag">Adoption Guides</span>
+              <h3>Pet-Proofing Your Home: The Room-by-Room Checklist</h3>
+              <p>Before your new pet arrives, it's essential to make your home safe. Our room-by-room guide covers everything from hiding electrical cords to securing toxic plants and choosing the right bedding.</p>
+              <div class="pc-blog-card__footer">
+                <span>May 18, 2026 &bull; 6 min read</span>
+                <span class="pc-blog-card__readmore">Read More &rarr;</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Post 3 -->
+          <a href="blog-single.html" class="pc-blog-card">
+            <div class="pc-blog-card__img" style="background:linear-gradient(135deg,#2a4080,#10214b);">
+              <div class="pc-blog-card__img-fallback" style="height:100%;display:flex;align-items:center;justify-content:center;">
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="rgba(215,189,136,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+            </div>
+            <div class="pc-blog-card__body">
+              <span class="pc-blog-tag">Training</span>
+              <h3>The First 30 Days: Building Trust With Your Newly Adopted Pet</h3>
+              <p>The first month is critical. Whether it's a nervous rescue dog or a shy cat, your new companion needs patience, routine, and quiet consistency. Here's a day-by-day approach to building an unshakeable bond.</p>
+              <div class="pc-blog-card__footer">
+                <span>May 15, 2026 &bull; 7 min read</span>
+                <span class="pc-blog-card__readmore">Read More &rarr;</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Post 4 -->
+          <a href="blog-single.html" class="pc-blog-card" id="success-stories">
+            <div class="pc-blog-card__img">
+              <div class="pc-blog-card__img-fallback" style="background:linear-gradient(135deg,#10214b,#2a3060);height:100%;display:flex;align-items:center;justify-content:center;">
+                <img src="img/t1.png" alt="Adoption Story" style="border-radius:50%;width:80px;height:80px;object-fit:cover;" onerror="this.style.display='none'">
+              </div>
+            </div>
+            <div class="pc-blog-card__body">
+              <span class="pc-blog-tag">Success Stories</span>
+              <h3>"Max Changed Everything": One Family's Dog Adoption Story</h3>
+              <p>When the Okonkwo family lost their elderly Labrador, they weren't sure they were ready to open their hearts again. Then they met Max — and everything changed. A story about grief, healing, and second chances.</p>
+              <div class="pc-blog-card__footer">
+                <span>May 10, 2026 &bull; 4 min read</span>
+                <span class="pc-blog-card__readmore">Read More &rarr;</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Post 5 -->
+          <a href="blog-single.html" class="pc-blog-card" id="health">
+            <div class="pc-blog-card__img" style="background:linear-gradient(135deg,#1a3070,#10214b);">
+              <div class="pc-blog-card__img-fallback" style="height:100%;display:flex;align-items:center;justify-content:center;">
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="rgba(215,189,136,0.5)" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+            </div>
+            <div class="pc-blog-card__body">
+              <span class="pc-blog-tag">Health &amp; Wellness</span>
+              <h3>Your New Pet's First Vet Visit: What to Expect and What to Ask</h3>
+              <p>Scheduling your new pet's first veterinary appointment within 48 hours of adoption is one of the most important steps you can take. We explain exactly what will happen and the 10 questions every new owner should ask.</p>
+              <div class="pc-blog-card__footer">
+                <span>May 6, 2026 &bull; 5 min read</span>
+                <span class="pc-blog-card__readmore">Read More &rarr;</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Post 6 -->
+          <a href="blog-single.html" class="pc-blog-card" id="pet-care">
+            <div class="pc-blog-card__img" style="background:linear-gradient(135deg,#10214b,#1a3070);">
+              <div class="pc-blog-card__img-fallback" style="height:100%;display:flex;align-items:center;justify-content:center;">
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="rgba(215,189,136,0.5)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+            </div>
+            <div class="pc-blog-card__body">
+              <span class="pc-blog-tag">Pet Care</span>
+              <h3>Adopting an Exotic Pet: What You Should Know Before Choosing a Bird or Reptile</h3>
+              <p>Birds and reptiles make fascinating companions — but they come with unique needs that many first-time owners underestimate. Before you adopt a parrot, gecko, or iguana, read this honest guide from our specialists.</p>
+              <div class="pc-blog-card__footer">
+                <span>April 30, 2026 &bull; 6 min read</span>
+                <span class="pc-blog-card__readmore">Read More &rarr;</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Post 7 id="training" -->
+          <a href="blog-single.html" class="pc-blog-card" id="training">
+            <div class="pc-blog-card__img" style="background:linear-gradient(135deg,#2a4080,#10214b);">
+              <div class="pc-blog-card__img-fallback" style="height:100%;display:flex;align-items:center;justify-content:center;">
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="rgba(215,189,136,0.5)" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+            </div>
+            <div class="pc-blog-card__body">
+              <span class="pc-blog-tag">Training</span>
+              <h3>Positive Reinforcement 101: Training Your Adopted Dog Without Fear or Punishment</h3>
+              <p>Many rescue dogs come with baggage — anxiety, fear responses, or no training at all. Positive reinforcement isn't just kinder; it's more effective. Here's how to start, what supplies you'll need, and common mistakes to avoid.</p>
+              <div class="pc-blog-card__footer">
+                <span>April 24, 2026 &bull; 8 min read</span>
+                <span class="pc-blog-card__readmore">Read More &rarr;</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Post 8 -->
+          <a href="blog-single.html" class="pc-blog-card">
+            <div class="pc-blog-card__img" style="background:linear-gradient(135deg,#10214b,#2a3060);">
+              <div class="pc-blog-card__img-fallback" style="height:100%;display:flex;align-items:center;justify-content:center;">
+                <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="rgba(215,189,136,0.5)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+            </div>
+            <div class="pc-blog-card__body">
+              <span class="pc-blog-tag">Adoption Guides</span>
+              <h3>Small Mammals as Pets: Rabbits, Guinea Pigs, and Hamsters Compared</h3>
+              <p>Not everyone has space for a dog or cat — and small mammals can be incredible companions. We compare rabbits, guinea pigs, and hamsters across temperament, lifespan, care needs, and suitability for children.</p>
+              <div class="pc-blog-card__footer">
+                <span>April 18, 2026 &bull; 5 min read</span>
+                <span class="pc-blog-card__readmore">Read More &rarr;</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+        <!-- End grid -->
+
+        <!-- Pagination -->
+        <nav aria-label="Blog pagination" style="margin-bottom:48px;">
+          <ul class="pagination justify-content-center" style="gap:8px;">
+            <li class="page-item disabled">
+              <span class="page-link" style="border-radius:8px;border:none;box-shadow:0 2px 8px rgba(16,33,75,0.08);color:#9a8e82;">&larr; Previous</span>
+            </li>
+            <li class="page-item active">
+              <span class="page-link" style="border-radius:8px;background:#10214b;border:none;">1</span>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#" style="border-radius:8px;border:none;box-shadow:0 2px 8px rgba(16,33,75,0.08);color:#10214b;">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#" style="border-radius:8px;border:none;box-shadow:0 2px 8px rgba(16,33,75,0.08);color:#10214b;">Next &rarr;</a>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+      <!-- End Posts Column -->
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+
+        <div class="pc-sidebar-widget">
+          <h5>Quick Adopt</h5>
+          <p style="font-family:'Sora',sans-serif;font-size:13px;color:#5a5048;margin-bottom:16px;">
+            Ready to meet your new companion? Browse available pets by category.
+          </p>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a href="dogs.html" class="pc-btn pc-btn--orange" style="justify-content:center;">Browse Dogs</a>
+            <a href="cats.html" class="pc-btn pc-btn--primary" style="justify-content:center;">Browse Cats</a>
+            <a href="birds.html" class="pc-btn pc-btn--ghost" style="justify-content:center;border-color:#d7bd88;color:#10214b;">Birds, Reptiles &amp; More</a>
+          </div>
+        </div>
+
+        <div class="pc-sidebar-widget">
+          <h5>Categories</h5>
+          <ul class="pc-sidebar-link-list">
+            <li><a href="#">Adoption Guides <span style="float:right;color:#9a8e82;">4</span></a></li>
+            <li><a href="#">Pet Care <span style="float:right;color:#9a8e82;">3</span></a></li>
+            <li><a href="#">Training <span style="float:right;color:#9a8e82;">2</span></a></li>
+            <li><a href="#">Success Stories <span style="float:right;color:#9a8e82;">2</span></a></li>
+            <li><a href="#">Health &amp; Wellness <span style="float:right;color:#9a8e82;">2</span></a></li>
+          </ul>
+        </div>
+
+        <div class="pc-sidebar-widget">
+          <h5>Recent Posts</h5>
+          <ul class="pc-sidebar-link-list">
+            <li><a href="blog-single.html">The Complete First-Time Adopter's Dog Guide</a></li>
+            <li><a href="blog-single.html">5 Things No One Tells You Before Adopting a Cat</a></li>
+            <li><a href="blog-single.html">Pet-Proofing Your Home: Room-by-Room Checklist</a></li>
+            <li><a href="blog-single.html">The First 30 Days With Your New Pet</a></li>
+            <li><a href="blog-single.html">Your New Pet's First Vet Visit</a></li>
+          </ul>
+        </div>
+
+        <div class="pc-sidebar-widget">
+          <h5>Check Application Status</h5>
+          <p style="font-family:'Sora',sans-serif;font-size:13px;color:#5a5048;margin-bottom:16px;">
+            Already applied? Check your adoption application status instantly.
+          </p>
+          <a href="index.html#status-checker" class="pc-btn pc-btn--primary" style="justify-content:center;width:100%;">Check My Status</a>
+        </div>
+
+        <div class="pc-blog-adopt-cta">
+          <h5>Ready to Adopt?</h5>
+          <p>Hundreds of pets are waiting for their forever home. Start your adoption journey today — it only takes a few minutes.</p>
+          <a href="adoption-application.html" class="pc-btn pc-btn--orange" style="justify-content:center;width:100%;">Apply to Adopt</a>
+        </div>
+
+      </div>
+      <!-- End Sidebar -->
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-area">
+  <div class="container">
+    <div class="row pt-120 pb-80">
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget">
+          <h6>Pet Center Adoption</h6>
+          <p>We connect loving families with adoptable pets across all categories. Every pet deserves a forever home — let us help you find yours.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget">
+          <h6>Quick Links</h6>
+          <div class="row">
+            <ul class="col footer-nav">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="dogs.html">Dogs</a></li>
+              <li><a href="cats.html">Cats</a></li>
+              <li><a href="blog-home.html">Blog</a></li>
+            </ul>
+            <ul class="col footer-nav">
+              <li><a href="reptiles.html">Reptiles</a></li>
+              <li><a href="small-mammals.html">Small Mammals</a></li>
+              <li><a href="adoption-application.html">Apply</a></li>
+              <li><a href="https://docs.petcenterco.com/contact-us" target="_blank">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="single-footer-widget mail-chimp">
+          <h6 class="mb-20">Contact Us</h6>
+          <ul class="list-contact">
+            <li class="flex-row d-flex">
+              <div class="icon"><span class="lnr lnr-home"></span></div>
+              <div class="detail">
+                <h4>Binghamton, New York</h4>
+                <p>4343 Hinkle Deegan Lake Road</p>
+              </div>
+            </li>
+            <li class="flex-row d-flex">
+              <div class="icon"><span class="lnr lnr-envelope"></span></div>
+              <div class="detail">
+                <h4>adopt@petcenterco.com</h4>
+                <p>Send us your query anytime!</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright-text">
+    <div class="container">
+      <div class="row footer-bottom d-flex justify-content-between">
+        <p class="col-lg-8 col-sm-6 footer-text m-0 text-white">
+          Copyright &copy;<script>document.write(new Date().getFullYear());</script> Pet Center Adoption. All rights reserved.
+        </p>
+        <div class="col-lg-4 col-sm-6 footer-social">
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/easing.min.js"></script>
+<script src="js/hoverIntent.js"></script>
+<script src="js/superfish.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

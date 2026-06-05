@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Read adoption testimonials from happy Pet Center families. Share your own story.">
+  <title>Testimonials — Pet Center Adoption</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Header ── */
+    .pc-header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(16,33,75,0.97);
+      padding: 0 24px; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.18);
+    }
+    .pc-header__logo img { height: 40px; width: auto; }
+    .pc-header__nav { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .pc-header__nav a {
+      display: block; padding: 8px 11px;
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.9); text-decoration: none;
+      border-radius: 6px; transition: color 0.2s, background 0.2s;
+    }
+    .pc-header__nav a:hover { color: #d7bd88; background: rgba(255,255,255,0.08); }
+    .pc-header__nav .nav-donate a { background: #ED7624; color: #fff; font-weight: 600; padding: 8px 16px; }
+    .pc-header__nav .nav-donate a:hover { background: #d4621a; }
+    .pc-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px; background: none; border: none;
+    }
+    .pc-hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+    .pc-mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: rgba(16,33,75,0.98); z-index: 999;
+      padding: 16px 0 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .pc-mobile-menu.open { display: block; }
+    .pc-mobile-menu a {
+      display: block; padding: 12px 28px;
+      font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 500;
+      color: rgba(255,255,255,0.9); text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pc-mobile-menu a:hover { color: #d7bd88; }
+    @media (max-width: 900px) {
+      .pc-header__nav { display: none; }
+      .pc-hamburger { display: flex; }
+    }
+
+    /* ── Hero ── */
+    .pc-testi-hero {
+      background: linear-gradient(120deg, #10214b 0%, #1a3070 60%, #2a4080 100%);
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    .pc-testi-hero__eyebrow {
+      display: inline-block; font-family: 'Sora', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #d7bd88;
+      background: rgba(215,189,136,0.12); border: 1px solid rgba(215,189,136,0.3);
+      padding: 5px 16px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .pc-testi-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      color: #fff; margin-bottom: 14px;
+    }
+    .pc-testi-hero p {
+      font-family: 'Sora', sans-serif; font-size: 15px;
+      color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto;
+    }
+
+    /* ── Main layout ── */
+    .pc-testi-main {
+      max-width: 1100px; margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    /* ── Controls ── */
+    .pc-testi-controls-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px;
+      margin-bottom: 32px;
+    }
+    .pc-testi-count-label {
+      font-family: 'Sora', sans-serif; font-size: 13.5px; color: #7a6d5f;
+    }
+    .pc-testi-sort {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pc-testi-sort label {
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; color: #10214b;
+    }
+    .pc-testi-sort select {
+      padding: 8px 14px; border: 1px solid #d0c3ba;
+      border-radius: 8px; font-family: 'Sora', sans-serif; font-size: 13px;
+      color: #10214b; background: #fff; outline: none;
+      cursor: pointer; transition: border-color 0.2s;
+    }
+    .pc-testi-sort select:focus { border-color: #10214b; }
+
+    /* ── Grid ── */
+    .pc-testi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 700px) { .pc-testi-grid { grid-template-columns: 1fr; } }
+
+    /* ── Card ── */
+    .pc-testi-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(16,33,75,0.08);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pc-testi-card__top {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .pc-testi-card__avatar {
+      width: 50px; height: 50px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 17px; flex-shrink: 0;
+    }
+    .pc-testi-card__meta { flex: 1; }
+    .pc-testi-card__name {
+      font-family: 'Sora', sans-serif; font-size: 14.5px; font-weight: 600; color: #10214b;
+    }
+    .pc-testi-card__date {
+      font-family: 'Sora', sans-serif; font-size: 12px; color: #9ca3af; margin-top: 2px;
+    }
+    .pc-testi-card__stars { font-size: 15px; letter-spacing: 1.5px; }
+    .pc-testi-card__text {
+      font-family: 'Sora', sans-serif; font-size: 14px;
+      line-height: 1.7; color: #3d2817;
+    }
+    .pc-testi-card__reply {
+      border-top: 1px solid #f0ebe4;
+      padding-top: 14px; padding-left: 48px;
+      margin-top: 4px;
+    }
+    .pc-testi-card__reply-header {
+      display: flex; align-items: center; gap: 9px; margin-bottom: 7px;
+    }
+    .pc-testi-card__reply-av {
+      width: 33px; height: 33px; border-radius: 50%;
+      background: #10214b; color: #d7bd88;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 12px; flex-shrink: 0;
+    }
+    .pc-testi-card__reply-name {
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; color: #10214b;
+    }
+    .pc-testi-card__reply-role {
+      font-size: 11px; color: #9ca3af;
+    }
+    .pc-testi-card__reply-date {
+      font-size: 11px; color: #b0a69a; margin-top: 3px;
+    }
+    .pc-testi-card__reply-text {
+      font-family: 'Sora', sans-serif; font-size: 13.5px;
+      line-height: 1.6; color: #7a6d5f; font-style: italic; margin-top: 5px;
+    }
+    @media (max-width: 560px) {
+      .pc-testi-card__reply { padding-left: 0; }
+    }
+
+    /* ── Pagination ── */
+    .pc-testi-pagination {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .pc-testi-page-label {
+      text-align: center; font-family: 'Sora', sans-serif;
+      font-size: 13px; color: #9ca3af; margin-bottom: 40px;
+    }
+    .pc-page-btn {
+      width: 38px; height: 38px;
+      border: 1px solid #d0c3ba; background: #fff;
+      border-radius: 8px; cursor: pointer;
+      font-family: 'Sora', sans-serif; font-size: 13.5px; font-weight: 500;
+      color: #10214b; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pc-page-btn:hover:not(:disabled) { background: #10214b; color: #fff; border-color: #10214b; }
+    .pc-page-btn.active { background: #10214b; color: #fff; border-color: #10214b; font-weight: 700; }
+    .pc-page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .pc-page-btn.wide { width: auto; padding: 0 14px; font-size: 13px; }
+
+    /* ── Submit form ── */
+    .pc-testi-form-section {
+      background: linear-gradient(135deg, #10214b, #1a3070);
+      padding: 60px 24px;
+    }
+    .pc-testi-form-inner {
+      max-width: 620px; margin: 0 auto;
+    }
+    .pc-testi-form-inner h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
+      color: #fff; margin-bottom: 8px;
+    }
+    .pc-testi-form-inner > p {
+      font-family: 'Sora', sans-serif; font-size: 14px;
+      color: rgba(255,255,255,0.7); margin-bottom: 32px;
+    }
+    .pc-testi-form {
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .pc-testi-form .fg {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .pc-testi-form label {
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.85);
+    }
+    .pc-testi-form input,
+    .pc-testi-form textarea {
+      padding: 11px 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      font-family: 'Sora', sans-serif; font-size: 14px;
+      background: rgba(255,255,255,0.08); color: #fff;
+      outline: none; transition: border-color 0.2s;
+    }
+    .pc-testi-form input::placeholder,
+    .pc-testi-form textarea::placeholder { color: rgba(255,255,255,0.35); }
+    .pc-testi-form input:focus,
+    .pc-testi-form textarea:focus { border-color: #d7bd88; background: rgba(255,255,255,0.12); }
+    .pc-testi-form textarea { resize: vertical; min-height: 110px; }
+    .pc-star-input { display: flex; flex-direction: column; gap: 8px; }
+    .pc-stars-row { display: flex; gap: 9px; }
+    .pc-star {
+      font-size: 30px; color: rgba(255,255,255,0.3);
+      cursor: pointer; transition: color 0.2s; user-select: none;
+    }
+    .pc-star.active, .pc-star:hover { color: #f59e0b; }
+    .pc-star-text { font-family: 'Sora', sans-serif; font-size: 12.5px; color: rgba(255,255,255,0.55); }
+    .pc-star-text.chosen { color: #f59e0b; font-weight: 600; }
+    .pc-char-count { font-family: 'Sora', sans-serif; font-size: 11.5px; color: rgba(255,255,255,0.4); text-align: right; }
+    .pc-submit-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #ED7624; color: #fff;
+      border: none; border-radius: 8px;
+      padding: 13px 32px;
+      font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: background 0.2s; align-self: flex-start;
+    }
+    .pc-submit-btn:hover { background: #d4621a; }
+    .pc-form-msg {
+      padding: 12px 16px; border-radius: 8px;
+      font-family: 'Sora', sans-serif; font-size: 13.5px;
+      display: none;
+    }
+    .pc-form-msg.success { display: block; background: rgba(13,124,74,0.25); color: #7affc3; border: 1px solid rgba(13,124,74,0.4); }
+    .pc-form-msg.error   { display: block; background: rgba(192,57,43,0.2); color: #ffaaaa; border: 1px solid rgba(192,57,43,0.4); }
+
+    /* ── Footer ── */
+    .pc-footer-mini {
+      background: #0b1834; padding: 28px 24px;
+      text-align: center;
+      font-family: 'Sora', sans-serif; font-size: 12.5px;
+      color: rgba(255,255,255,0.4);
+    }
+    .pc-footer-mini a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    .pc-footer-mini a:hover { color: #d7bd88; }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="pc-header">
+  <a href="../index.html" class="pc-header__logo">
+    <img src="../assets/images/logo-petcenter.png" alt="Pet Center">
+  </a>
+  <ul class="pc-header__nav">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../dogs.html">Our Pets</a></li>
+    <li><a href="../blog-home.html">Blog</a></li>
+    <li><a href="index.html" style="color:#d7bd88;">Testimonials</a></li>
+    <li class="nav-donate"><a href="https://donate.petcenterco.com" target="_blank" rel="noopener">Donate</a></li>
+    <li><a href="https://docs.petcenterco.com/contact-us" target="_blank" rel="noopener">Contact</a></li>
+  </ul>
+  <button class="pc-hamburger" id="pcHam" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="pc-mobile-menu" id="pcMobMenu">
+  <a href="../index.html">Home</a>
+  <a href="../dogs.html">Dogs</a>
+  <a href="../cats.html">Cats</a>
+  <a href="../birds.html">Birds</a>
+  <a href="../reptiles.html">Reptiles</a>
+  <a href="../small-mammals.html">Small Mammals</a>
+  <a href="../blog-home.html">Blog</a>
+  <a href="index.html">Testimonials</a>
+  <a href="https://docs.petcenterco.com/contact-us" target="_blank">Contact</a>
+</nav>
+
+<!-- Hero -->
+<section class="pc-testi-hero">
+  <div class="pc-testi-hero__eyebrow">Adopter Stories</div>
+  <h1>Stories from Happy Adopters</h1>
+  <p>Honest, real feedback from families who found their perfect companion through Pet Center.</p>
+</section>
+
+<!-- Testimonials Page -->
+<main class="pc-testi-main">
+  <div class="pc-testi-controls-bar">
+    <span class="pc-testi-count-label" id="testiCountLabel">Loading testimonials...</span>
+    <div class="pc-testi-sort">
+      <label for="testiSort">Sort By:</label>
+      <select id="testiSort" onchange="sortAndRender()">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="highest">Highest Rated (5 &#9733; first)</option>
+        <option value="lowest">Lowest Rated (1 &#9733; first)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="pc-testi-grid" id="testiGrid"></div>
+
+  <div class="pc-testi-pagination" id="testiPagination"></div>
+  <div class="pc-testi-page-label" id="testiPageLabel"></div>
+</main>
+
+<!-- Submit Form -->
+<section class="pc-testi-form-section" id="shareStory">
+  <div class="pc-testi-form-inner">
+    <h2>Share Your Adoption Story</h2>
+    <p>Your feedback helps other families make the right choice. Be honest and specific.</p>
+
+    <form class="pc-testi-form" id="testiForm" novalidate>
+      <div class="fg">
+        <label for="tName">Your Name *</label>
+        <input type="text" id="tName" name="name" placeholder="Jane Smith" required minlength="2">
+      </div>
+      <div class="fg">
+        <label for="tEmail">Email Address *</label>
+        <input type="email" id="tEmail" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="fg">
+        <label>Rate Your Experience *</label>
+        <div class="pc-star-input">
+          <div class="pc-stars-row" id="starRow">
+            <span class="pc-star" data-v="1">&#9733;</span>
+            <span class="pc-star" data-v="2">&#9733;</span>
+            <span class="pc-star" data-v="3">&#9733;</span>
+            <span class="pc-star" data-v="4">&#9733;</span>
+            <span class="pc-star" data-v="5">&#9733;</span>
+          </div>
+          <input type="hidden" id="tRating" name="rating" value="0">
+          <span class="pc-star-text" id="starText">Select a rating</span>
+        </div>
+      </div>
+      <div class="fg">
+        <label for="tText">Your Testimonial *</label>
+        <textarea id="tText" name="text" placeholder="Tell us about your adoption experience. Be honest and specific..." rows="5" required minlength="10" maxlength="1000"></textarea>
+        <span class="pc-char-count"><span id="tCharCount">0</span> / 1000 characters</span>
+      </div>
+      <button type="submit" class="pc-submit-btn">Post Testimonial</button>
+      <div class="pc-form-msg" id="tFormMsg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="background:#10214b;color:#fff;padding:48px 24px 24px;margin-top:60px;">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px;margin-bottom:36px;">
+      <div>
+        <img src="../assets/images/logo-petcenter.png" alt="Pet Center" style="height:44px;margin-bottom:16px;">
+        <p style="color:rgba(255,255,255,.65);font-size:13.5px;line-height:1.7;">Connecting loving families with animals in need. Every adoption changes two lives.</p>
+      </div>
+      <div>
+        <h5 style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#d7bd88;margin-bottom:14px;">Our Pets</h5>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;padding:0;margin:0;">
+          <li><a href="../dogs.html" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Dogs</a></li>
+          <li><a href="../cats.html" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Cats</a></li>
+          <li><a href="../birds.html" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Birds</a></li>
+          <li><a href="../reptiles.html" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Reptiles</a></li>
+          <li><a href="../small-mammals.html" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Small Mammals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#d7bd88;margin-bottom:14px;">Quick Links</h5>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;padding:0;margin:0;">
+          <li><a href="../adoption-application.html" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Apply to Adopt</a></li>
+          <li><a href="../index.html" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Home</a></li>
+          <li><a href="../rehome/" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Sign Up</a></li>
+          <li><a href="https://donate.petcenterco.com" target="_blank" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Donate</a></li>
+          <li><a href="https://docs.petcenterco.com/contact-us" target="_blank" style="color:rgba(255,255,255,.72);font-size:13.5px;text-decoration:none;">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#d7bd88;margin-bottom:14px;">Visit Us</h5>
+        <p style="color:rgba(255,255,255,.72);font-size:13.5px;line-height:1.7;margin-bottom:12px;">235-269 N Beverly Dr<br>Beverly Hills, CA<br>Golden Triangle Shopping Center<br>Section #257</p>
+        <p style="color:rgba(255,255,255,.72);font-size:13.5px;line-height:1.7;"><strong style="color:#d7bd88;">Hours:</strong><br>Mon &ndash; Fri: 7:00 AM &ndash; 9:00 PM<br>Sat &ndash; Sun: 10:00 AM &ndash; 6:00 PM</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:20px;text-align:center;">
+      <span style="color:rgba(255,255,255,.5);font-size:13px;">&copy; 2026 Pet Center. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── hamburger ── */
+(function(){
+  var btn = document.getElementById('pcHam');
+  var menu = document.getElementById('pcMobMenu');
+  btn.addEventListener('click', function(){ menu.classList.toggle('open'); });
+  document.addEventListener('click', function(e){
+    if (!menu.contains(e.target) && !btn.contains(e.target)) menu.classList.remove('open');
+  });
+})();
+
+/* ── testimonials page logic ── */
+var ALL_TESTI = [];
+var PAGE_SIZE = 10;
+var currentPage = 1;
+
+function esc(s) {
+  return String(s||'').replace(/[&<>"']/g, function(c){
+    return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);
+  });
+}
+
+function stars(n) {
+  var h = '';
+  for (var i=1;i<=5;i++) h += '<span style="color:'+(i<=n?'#f59e0b':'#d1d5db')+'">&#9733;</span>';
+  return h;
+}
+
+function parseDate(d) {
+  return new Date(d) || new Date(0);
+}
+
+function getSorted() {
+  var mode = document.getElementById('testiSort').value;
+  var arr = ALL_TESTI.slice();
+  if (mode === 'newest')  arr.sort(function(a,b){ return parseDate(b.date) - parseDate(a.date); });
+  if (mode === 'oldest')  arr.sort(function(a,b){ return parseDate(a.date) - parseDate(b.date); });
+  if (mode === 'highest') arr.sort(function(a,b){ return b.rating - a.rating; });
+  if (mode === 'lowest')  arr.sort(function(a,b){ return a.rating - b.rating; });
+  return arr;
+}
+
+function buildCard(t) {
+  var replyHtml = '';
+  if (t.reply && t.reply.name && t.reply.text) {
+    var ri = (t.reply.name.split(' ').map(function(n){ return n[0]; }).join(''));
+    replyHtml = '<div class="pc-testi-card__reply">' +
+      '<div class="pc-testi-card__reply-header">' +
+      '<div class="pc-testi-card__reply-av">' + esc(ri) + '</div>' +
+      '<div><div class="pc-testi-card__reply-name">' + esc(t.reply.name) + '</div>' +
+      '<div class="pc-testi-card__reply-role">' + esc(t.reply.role||'') + '</div>' +
+      '<div class="pc-testi-card__reply-date">' + esc(t.reply.date||'') + '</div></div></div>' +
+      '<div class="pc-testi-card__reply-text">' + esc(t.reply.text) + '</div></div>';
+  }
+  return '<div class="pc-testi-card">' +
+    '<div class="pc-testi-card__top">' +
+    '<div class="pc-testi-card__avatar" style="background:' + esc(t.color) + '">' + esc(t.initials) + '</div>' +
+    '<div class="pc-testi-card__meta"><div class="pc-testi-card__name">' + esc(t.name) + '</div>' +
+    '<div class="pc-testi-card__date">' + esc(t.date) + '</div></div>' +
+    '<div class="pc-testi-card__stars">' + stars(t.rating) + '</div></div>' +
+    '<div class="pc-testi-card__text">' + esc(t.text) + '</div>' +
+    replyHtml + '</div>';
+}
+
+function renderPage(sorted) {
+  var grid = document.getElementById('testiGrid');
+  var pagination = document.getElementById('testiPagination');
+  var pageLabel = document.getElementById('testiPageLabel');
+  var countLabel = document.getElementById('testiCountLabel');
+  var total = sorted.length;
+  var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  currentPage = Math.min(currentPage, totalPages);
+
+  var start = (currentPage - 1) * PAGE_SIZE;
+  var end = Math.min(start + PAGE_SIZE, total);
+  var page = sorted.slice(start, end);
+
+  countLabel.textContent = 'Showing ' + (total ? start+1 : 0) + '–' + end + ' of ' + total + ' testimonials';
+  grid.innerHTML = page.length ? page.map(buildCard).join('') : '<div style="grid-column:1/-1;text-align:center;padding:48px;font-family:Sora,sans-serif;color:#9ca3af;">No testimonials yet.</div>';
+
+  /* Pagination */
+  var pHtml = '';
+  pHtml += '<button class="pc-page-btn wide" onclick="goPage(' + (currentPage-1) + ')" ' + (currentPage<=1?'disabled':'') + '>&#8249; Prev</button>';
+  for (var p=1; p<=totalPages; p++) {
+    pHtml += '<button class="pc-page-btn' + (p===currentPage?' active':'') + '" onclick="goPage(' + p + ')">' + p + '</button>';
+  }
+  pHtml += '<button class="pc-page-btn wide" onclick="goPage(' + (currentPage+1) + ')" ' + (currentPage>=totalPages?'disabled':'') + '>Next &#8250;</button>';
+  pagination.innerHTML = pHtml;
+  pageLabel.textContent = 'Page ' + currentPage + ' of ' + totalPages;
+}
+
+function goPage(n) {
+  currentPage = n;
+  sortAndRender();
+  window.scrollTo({ top: document.querySelector('.pc-testi-main').offsetTop - 80, behavior: 'smooth' });
+}
+
+function sortAndRender() {
+  renderPage(getSorted());
+}
+
+/* Load testimonials */
+fetch('testimonials.json')
+  .then(function(r){ return r.json(); })
+  .then(function(data) {
+    ALL_TESTI = data.testimonials || [];
+    sortAndRender();
+  })
+  .catch(function() {
+    document.getElementById('testiGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:48px;font-family:Sora,sans-serif;color:#9ca3af;">Could not load testimonials.</div>';
+    document.getElementById('testiCountLabel').textContent = '0 testimonials';
+  });
+
+/* ── Star rating input ── */
+(function(){
+  var stars = document.querySelectorAll('#starRow .pc-star');
+  var ratingInput = document.getElementById('tRating');
+  var starText = document.getElementById('starText');
+  var labels = ['','Terrible','Poor','Average','Good','Excellent'];
+
+  stars.forEach(function(star) {
+    star.addEventListener('click', function() {
+      var v = parseInt(star.dataset.v);
+      ratingInput.value = v;
+      stars.forEach(function(s, i){ s.classList.toggle('active', i < v); });
+      starText.textContent = labels[v] + ' (' + v + '/5)';
+      starText.classList.add('chosen');
+    });
+    star.addEventListener('mouseover', function() {
+      var v = parseInt(star.dataset.v);
+      stars.forEach(function(s, i){ s.style.color = i < v ? '#f59e0b' : 'rgba(255,255,255,0.3)'; });
+    });
+  });
+  document.getElementById('starRow').addEventListener('mouseleave', function() {
+    var cur = parseInt(ratingInput.value) || 0;
+    stars.forEach(function(s, i){ s.style.color = i < cur ? '#f59e0b' : 'rgba(255,255,255,0.3)'; });
+  });
+})();
+
+/* ── Char count ── */
+document.getElementById('tText').addEventListener('input', function() {
+  document.getElementById('tCharCount').textContent = this.value.length;
+});
+
+/* ── Form submit ── */
+document.getElementById('testiForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var name   = document.getElementById('tName').value.trim();
+  var email  = document.getElementById('tEmail').value.trim();
+  var rating = parseInt(document.getElementById('tRating').value);
+  var text   = document.getElementById('tText').value.trim();
+  var msg    = document.getElementById('tFormMsg');
+
+  if (!name || name.length < 2) { showMsg('error','Please enter your name (min 2 characters).'); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showMsg('error','Please enter a valid email address.'); return; }
+  if (!rating || rating < 1 || rating > 5) { showMsg('error','Please select a star rating.'); return; }
+  if (!text || text.length < 10) { showMsg('error','Please write at least 10 characters.'); return; }
+
+  var btn = document.querySelector('.pc-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Posting...';
+
+  var body = 'name=' + encodeURIComponent(name) +
+             '&email=' + encodeURIComponent(email) +
+             '&rating=' + rating +
+             '&text=' + encodeURIComponent(text);
+
+  fetch('save-testimonial.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: body
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data) {
+    btn.disabled = false;
+    btn.textContent = 'Post Testimonial';
+    if (data.success) {
+      showMsg('success', 'Thank you! Your testimonial has been posted.');
+      document.getElementById('testiForm').reset();
+      document.getElementById('tCharCount').textContent = '0';
+      document.getElementById('tRating').value = '0';
+      document.getElementById('starText').textContent = 'Select a rating';
+      document.getElementById('starText').classList.remove('chosen');
+      document.querySelectorAll('#starRow .pc-star').forEach(function(s){ s.classList.remove('active'); s.style.color=''; });
+      if (data.testimonial) {
+        ALL_TESTI.push(data.testimonial);
+        currentPage = Math.ceil(ALL_TESTI.length / PAGE_SIZE);
+        sortAndRender();
+      }
+    } else {
+      showMsg('error', data.message || 'Could not save testimonial. Please try again.');
+    }
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.textContent = 'Post Testimonial';
+    showMsg('error', 'Network error. Please try again.');
+  });
+});
+
+function showMsg(type, text) {
+  var el = document.getElementById('tFormMsg');
+  el.className = 'pc-form-msg ' + type;
+  el.textContent = text;
+  setTimeout(function(){ el.className = 'pc-form-msg'; }, 6000);
+}
+</script>
+</body>
+</html>
